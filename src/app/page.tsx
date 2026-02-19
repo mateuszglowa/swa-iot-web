@@ -18,7 +18,10 @@ import {
 
 function HeroVisual() {
   return (
-    <div className="mx-auto w-full max-w-[200px] px-4 text-navy/30" aria-hidden>
+    <div
+      className="mx-auto w-full max-w-[200px] px-4 text-navy/30 dark:text-white/50"
+      aria-hidden
+    >
       <svg
         viewBox="0 0 200 48"
         fill="none"
@@ -40,7 +43,7 @@ function HeroVisual() {
           strokeLinejoin="round"
           opacity={0.7}
         />
-        <g className="text-accent-industrial">
+        <g className="text-accent-industrial dark:text-accent-industrial">
           <circle cx="50" cy="12" r="4" fill="currentColor" />
           <circle cx="90" cy="8" r="4" fill="currentColor" />
           <circle cx="130" cy="16" r="4" fill="currentColor" />
@@ -136,7 +139,7 @@ export default function Home() {
       <section className="hero-gradient border-b border-border px-6 py-20 sm:px-8 md:py-28 lg:px-12">
         <div className="mx-auto max-w-2xl text-center">
           <HeroVisual />
-          <span className="mt-6 inline-block rounded-full border border-navy/20 bg-navy/5 px-4 py-1.5 text-xs font-medium uppercase tracking-wider text-navy">
+          <span className="mt-6 inline-block rounded-full border border-navy/20 bg-navy/5 px-4 py-1.5 text-xs font-medium uppercase tracking-wider text-navy dark:border-white/30 dark:bg-white/15 dark:text-white">
             30-day pilot
           </span>
           <h1 className="mt-6 text-3xl font-bold tracking-tight text-foreground sm:text-4xl md:text-5xl md:leading-tight">
