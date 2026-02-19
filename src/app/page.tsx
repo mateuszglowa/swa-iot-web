@@ -3,20 +3,8 @@ import {
   Mail,
   Linkedin,
   Calendar,
-  Radio,
-  Cpu,
-  Cloud,
-  Bell,
-  CalendarCheck,
-  Factory,
-  Droplets,
-  Snowflake,
-  Zap,
-  Gauge,
   Check,
-  Layers,
-  Wrench,
-  LayoutDashboard,
+  ArrowRight,
 } from "lucide-react";
 
 function HeroVisual() {
@@ -56,83 +44,92 @@ function HeroVisual() {
   );
 }
 
-const USE_CASES = [
+function EndToEndDiagram() {
+  return (
+    <div
+      className="mx-auto max-w-3xl rounded-xl border-2 border-border bg-card p-4 dark:bg-card sm:p-6"
+      aria-hidden
+    >
+      <div className="flex flex-col gap-3 sm:flex-row sm:items-stretch sm:gap-2">
+        {[
+          { label: "Sensor", short: "1" },
+          { label: "Edge", short: "2" },
+          { label: "Cloud", short: "3" },
+          { label: "Visibility", short: "4" },
+        ].map((block, i) => (
+          <div key={block.label} className="flex flex-1 items-center gap-2 sm:flex-col sm:gap-1">
+            <div className="flex flex-1 items-center justify-center rounded-lg border border-border bg-muted/50 py-3 text-center dark:bg-muted">
+              <span className="text-xs font-semibold uppercase tracking-wider text-muted-foreground sm:text-[10px]">
+                {block.label}
+              </span>
+            </div>
+            {i < 3 && (
+              <ArrowRight className="hidden shrink-0 text-muted-foreground sm:block" aria-hidden />
+            )}
+          </div>
+        ))}
+      </div>
+      <p className="mt-3 text-center text-xs text-muted-foreground">
+        We own the entire system architecture — not just a single layer.
+      </p>
+    </div>
+  );
+}
+
+const E2E_LAYERS = [
   {
-    id: "manufacturing",
-    title: "Manufacturing Equipment Monitoring",
-    icon: Factory,
-    iconBg: "bg-navy/10 text-navy",
-    problem:
-      "Recurring motor, bearing, or compressor failures.",
-    monitor:
-      "Vibration, temperature, pressure, runtime.",
-    outcome:
-      "Early detection of abnormal patterns and reduced unplanned downtime.",
+    id: "sensor",
+    title: "Layer 1: Physical & Sensor Integration",
+    bullets: [
+      "Selection of industrial-grade sensors",
+      "Custom integration with existing equipment",
+      "Environmental suitability",
+    ],
   },
   {
-    id: "agricultural",
-    title: "Agricultural Water & Irrigation Systems",
-    icon: Droplets,
-    iconBg: "bg-accent-industrial/15 text-accent-industrial",
-    problem:
-      "Pump failures, pressure instability, water waste.",
-    monitor:
-      "Flow rate, pressure, pump cycles, soil moisture.",
-    outcome:
-      "Leak detection, pump protection, optimized irrigation cycles.",
+    id: "edge",
+    title: "Layer 2: Embedded & Edge Systems",
+    bullets: [
+      "Custom data acquisition devices",
+      "On-site preprocessing",
+      "Secure connectivity",
+    ],
   },
   {
-    id: "cold-storage",
-    title: "Cold Storage & Food Facilities",
-    icon: Snowflake,
-    iconBg: "bg-navy/10 text-navy",
-    problem:
-      "Temperature drift and compressor overload.",
-    monitor:
-      "Temperature, compressor cycles, door activity.",
-    outcome:
-      "Regulatory compliance support and reduced spoilage risk.",
+    id: "cloud",
+    title: "Layer 3: Cloud Infrastructure",
+    bullets: [
+      "Secure ingestion pipelines",
+      "Scalable backend architecture",
+      "Data storage and modeling",
+    ],
   },
   {
-    id: "energy",
-    title: "Energy Monitoring for SMEs",
-    icon: Zap,
-    iconBg: "bg-accent-industrial/15 text-accent-industrial",
-    problem:
-      "Rising electricity costs without machine-level insight.",
-    monitor:
-      "Per-machine energy consumption, load patterns, peak usage.",
-    outcome:
-      "Data-driven energy optimization.",
-  },
-  {
-    id: "water-treatment",
-    title: "Small Water Treatment & Pump Stations",
-    icon: Gauge,
-    iconBg: "bg-navy/10 text-navy",
-    problem:
-      "Limited remote visibility and manual log tracking.",
-    monitor:
-      "Tank levels, pump runtime, temperature, alarms.",
-    outcome:
-      "Remote operational visibility and faster incident response.",
+    id: "visibility",
+    title: "Layer 4: Operational Visibility",
+    bullets: [
+      "Dashboards tailored to operations teams",
+      "Threshold-based alerts",
+      "Structured reporting",
+    ],
   },
 ] as const;
 
-const WHAT_WE_DO = [
-  { icon: Radio, label: "Sensor integration" },
-  { icon: Cpu, label: "Edge data acquisition" },
-  { icon: Cloud, label: "Secure cloud ingestion" },
-  { icon: Bell, label: "Alerting & reporting" },
-  { icon: CalendarCheck, label: "30-day pilot deployment model" },
+const PROBLEMS = [
+  "Unplanned equipment downtime",
+  "Lack of runtime visibility",
+  "Manual logbooks and reactive maintenance",
+  "Energy inefficiency without root-cause data",
+  "Remote asset blind spots",
 ] as const;
 
-const END_TO_END = [
-  { icon: Layers, label: "We design our own edge devices" },
-  { icon: Wrench, label: "Board-level assembly & on-site installation" },
-  { icon: Cloud, label: "Cloud communication & data ingestion" },
-  { icon: LayoutDashboard, label: "Dedicated dashboards per client" },
-  { icon: Bell, label: "Alerts delivered to your team" },
+const DELIVERY_STEPS = [
+  "Operational Assessment",
+  "System Architecture Design",
+  "Hardware Configuration",
+  "Deployment & Data Collection",
+  "Analysis & Recommendations",
+  "Optional Scale-Up",
 ] as const;
 
 const PILOT_STEPS = [
@@ -141,6 +138,51 @@ const PILOT_STEPS = [
   { step: 3, title: "Device configuration & shipment" },
   { step: 4, title: "30 days of data collection" },
   { step: 5, title: "Report & next-step recommendations" },
+] as const;
+
+const USE_CASES = [
+  {
+    vertical: "Manufacturing",
+    asset: "Motors, bearings, compressors",
+    risk: "Unplanned downtime, recurring failures",
+    variables: "Vibration, temperature, pressure, runtime",
+    outcome: "Early fault detection, reduced unplanned downtime",
+  },
+  {
+    vertical: "Irrigation & Agriculture",
+    asset: "Pumps, flow, soil",
+    risk: "Pump failure, water waste, pressure instability",
+    variables: "Flow rate, pressure, pump cycles, soil moisture",
+    outcome: "Leak detection, pump protection, optimized cycles",
+  },
+  {
+    vertical: "Cold Storage & Food",
+    asset: "Temperature zones, compressors",
+    risk: "Temperature drift, spoilage, compliance gaps",
+    variables: "Temperature, compressor cycles, door activity",
+    outcome: "Compliance support, reduced spoilage risk",
+  },
+  {
+    vertical: "Energy",
+    asset: "Machine-level consumption",
+    risk: "Rising costs, no visibility into peaks or waste",
+    variables: "Per-machine consumption, load patterns, peak usage",
+    outcome: "Data-driven optimization",
+  },
+  {
+    vertical: "Pump Stations & Water Treatment",
+    asset: "Tanks, pumps, alarms",
+    risk: "Remote blind spots, manual logs",
+    variables: "Tank levels, pump runtime, temperature, alarms",
+    outcome: "Remote visibility, faster incident response",
+  },
+] as const;
+
+const WHY_APPROACH = [
+  "Full-stack ownership reduces integration gaps.",
+  "No dependency on multiple vendors.",
+  "Systems designed specifically for each operational environment.",
+  "Focus on measurable impact, not dashboards for their own sake.",
 ] as const;
 
 export default function Home() {
@@ -154,11 +196,16 @@ export default function Home() {
             30-day pilot
           </span>
           <h1 className="mt-6 text-3xl font-bold tracking-tight text-foreground sm:text-4xl md:text-5xl md:leading-tight">
-            Remote Monitoring Systems for Industrial &amp; Infrastructure Assets
+            End-to-End Industrial Monitoring Systems
           </h1>
           <p className="mt-5 text-lg text-muted-foreground sm:text-xl">
-            We design and deploy practical sensor-based systems that help detect
-            failures early, reduce downtime, and improve operational visibility.
+            From physical sensors to actionable cloud insights — we design and
+            deploy complete monitoring solutions for real-world operations.
+          </p>
+          <p className="mt-3 text-base text-muted-foreground">
+            We build reliable monitoring systems for equipment, utilities, and
+            infrastructure where downtime and blind spots create operational
+            risk.
           </p>
           <div className="mt-10 flex flex-col items-center justify-center gap-3 sm:flex-row">
             <Button
@@ -174,135 +221,124 @@ export default function Home() {
               size="lg"
               className="w-full min-w-[200px] border-2 border-foreground/20 hover:border-accent-industrial hover:bg-accent-industrial/5 hover:text-foreground sm:w-auto"
             >
-              <a href="#use-cases">Explore Use Cases</a>
+              <a href="#what-e2e">See How It Works</a>
             </Button>
           </div>
         </div>
       </section>
 
-      {/* 2. What We Do */}
-      <section className="border-b border-border bg-muted/40 px-6 py-16 sm:px-8 lg:px-12">
-        <div className="mx-auto max-w-3xl">
-          <h2 className="text-xl font-bold text-foreground sm:text-2xl">
-            What we do
-          </h2>
-          <p className="mt-3 text-muted-foreground">
-            We build custom monitoring systems combining embedded devices, edge
-            data processing, and cloud dashboards for asset-heavy environments.
-          </p>
-          <ul className="mt-8 space-y-3">
-            {WHAT_WE_DO.map((item) => {
-              const Icon = item.icon;
-              return (
-                <li
-                  key={item.label}
-                  className="flex items-center gap-3 text-foreground"
-                >
-                  <div className="flex size-9 shrink-0 items-center justify-center rounded-lg bg-navy/10 text-navy">
-                    <Icon className="size-4" />
-                  </div>
-                  <span>{item.label}</span>
-                </li>
-              );
-            })}
-          </ul>
-        </div>
-      </section>
-
-      {/* End-to-end delivery */}
-      <section className="border-b border-border px-6 py-16 sm:px-8 lg:px-12">
-        <div className="mx-auto max-w-3xl">
-          <h2 className="text-xl font-bold text-foreground sm:text-2xl">
-            End-to-end delivery
-          </h2>
-          <p className="mt-3 text-muted-foreground">
-            We design solutions from device to dashboard: our own edge hardware
-            (designed by us, assembled at board level, installed on site),
-            secure cloud connectivity, and dedicated dashboards with alerts for
-            your operations team.
-          </p>
-          <ul className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {END_TO_END.map((item) => {
-              const Icon = item.icon;
-              return (
-                <li
-                  key={item.label}
-                  className="flex items-start gap-3 rounded-lg border border-border bg-card p-4"
-                >
-                  <div className="flex size-10 shrink-0 items-center justify-center rounded-lg bg-navy/10 text-navy dark:bg-navy/20">
-                    <Icon className="size-5" />
-                  </div>
-                  <span className="text-sm font-medium text-foreground">
-                    {item.label}
-                  </span>
-                </li>
-              );
-            })}
-          </ul>
-        </div>
-      </section>
-
-      {/* 3. Industries & Use Cases */}
+      {/* 2. What End-to-End Means */}
       <section
-        id="use-cases"
-        className="border-b border-border px-6 py-16 sm:px-8 lg:px-12"
+        id="what-e2e"
+        className="border-b border-border bg-muted/40 px-6 py-16 sm:px-8 lg:px-12"
       >
-        <div className="mx-auto max-w-5xl">
+        <div className="mx-auto max-w-4xl">
           <h2 className="text-xl font-bold text-foreground sm:text-2xl">
-            Industries &amp; use cases
+            What end-to-end means
           </h2>
-          <p className="mt-2 text-muted-foreground">
-            Scannable by vertical. Scope is tailored to your assets and goals.
+          <p className="mt-3 text-muted-foreground">
+            We own the entire system architecture — from sensors to dashboards —
+            not just a single layer.
           </p>
-          <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {USE_CASES.map((uc) => {
-              const Icon = uc.icon;
-              return (
-                <article
-                  key={uc.id}
-                  className="group flex flex-col rounded-xl border-2 border-border bg-card p-5 shadow-sm transition-all hover:-translate-y-0.5 hover:border-navy/30 hover:shadow-lg"
-                >
-                  <div className="flex items-center gap-3">
-                    <div
-                      className={`flex size-10 shrink-0 items-center justify-center rounded-lg ${uc.iconBg}`}
+          <div className="mt-8">
+            <EndToEndDiagram />
+          </div>
+          <div className="mt-10 grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
+            {E2E_LAYERS.map((layer) => (
+              <div
+                key={layer.id}
+                className="rounded-xl border border-border bg-card p-5"
+              >
+                <h3 className="font-semibold text-foreground">
+                  {layer.title}
+                </h3>
+                <ul className="mt-3 space-y-1.5">
+                  {layer.bullets.map((b) => (
+                    <li
+                      key={b}
+                      className="flex items-start gap-2 text-sm text-muted-foreground"
                     >
-                      <Icon className="size-5" />
-                    </div>
-                    <h3 className="font-bold text-foreground">{uc.title}</h3>
-                  </div>
-                  <p className="mt-3 text-xs font-medium uppercase tracking-wider text-muted-foreground">
-                    Problem
-                  </p>
-                  <p className="mt-0.5 text-sm text-foreground">{uc.problem}</p>
-                  <p className="mt-3 text-xs font-medium uppercase tracking-wider text-muted-foreground">
-                    What we monitor
-                  </p>
-                  <p className="mt-0.5 text-sm text-foreground">{uc.monitor}</p>
-                  <p className="mt-3 text-xs font-medium uppercase tracking-wider text-muted-foreground">
-                    Expected outcome
-                  </p>
-                  <p className="mt-0.5 text-sm text-foreground">{uc.outcome}</p>
-                </article>
-              );
-            })}
+                      <Check className="mt-0.5 size-4 shrink-0 text-navy" />
+                      <span>{b}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* 4. How Our Pilot Model Works */}
+      {/* 3. Problems We Solve */}
+      <section className="border-b border-border px-6 py-16 sm:px-8 lg:px-12">
+        <div className="mx-auto max-w-4xl">
+          <h2 className="text-xl font-bold text-foreground sm:text-2xl">
+            Problems we solve
+          </h2>
+          <p className="mt-2 text-muted-foreground">
+            We reduce operational risk where it matters.
+          </p>
+          <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {PROBLEMS.map((problem) => (
+              <div
+                key={problem}
+                className="rounded-lg border border-border bg-card px-4 py-3"
+              >
+                <p className="text-sm font-medium text-foreground">{problem}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* 4. How We Deliver */}
       <section
         id="how-it-works"
         className="border-b border-border bg-muted/40 px-6 py-16 sm:px-8 lg:px-12"
       >
         <div className="mx-auto max-w-3xl">
           <h2 className="text-xl font-bold text-foreground sm:text-2xl">
-            How our pilot model works
+            How we deliver
           </h2>
           <p className="mt-2 text-muted-foreground">
-            Low-risk engagement. We handle configuration and analysis.
+            Clear scope. Defined pilot. Measurable outcome. Low-risk entry.
           </p>
-          <div className="mt-10 rounded-2xl border-2 border-border bg-card p-6 sm:p-8">
-            <ol className="grid grid-cols-1 gap-6 sm:grid-cols-5 sm:gap-4">
+          <ol className="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {DELIVERY_STEPS.map((step, i) => (
+              <li
+                key={step}
+                className="flex items-start gap-3 rounded-lg border border-border bg-card p-4"
+              >
+                <span className="flex size-8 shrink-0 items-center justify-center rounded-lg bg-navy text-sm font-bold text-navy-foreground">
+                  {i + 1}
+                </span>
+                <span className="text-sm font-semibold text-foreground">
+                  {step}
+                </span>
+              </li>
+            ))}
+          </ol>
+        </div>
+      </section>
+
+      {/* 4b. 30-day pilot – How our pilot works */}
+      <section
+        id="pilot"
+        className="border-b border-border px-6 py-16 sm:px-8 lg:px-12"
+      >
+        <div className="mx-auto max-w-3xl">
+          <h2 className="text-xl font-bold text-foreground sm:text-2xl">
+            30-day pilot
+          </h2>
+          <p className="mt-2 text-muted-foreground">
+            Low-risk way to start. We handle configuration and analysis; you get
+            a clear report with findings and next-step options.
+          </p>
+          <div className="mt-8 rounded-2xl border-2 border-border bg-muted/30 p-6 sm:p-8">
+            <h3 className="text-base font-semibold text-foreground">
+              How our pilot works
+            </h3>
+            <ol className="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-5 sm:gap-2">
               {PILOT_STEPS.map((item) => (
                 <li
                   key={item.step}
@@ -325,37 +361,65 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 5. Our Approach */}
+      {/* 5. Use Case Examples */}
       <section className="border-b border-border px-6 py-16 sm:px-8 lg:px-12">
+        <div className="mx-auto max-w-5xl">
+          <h2 className="text-xl font-bold text-foreground sm:text-2xl">
+            Use case examples
+          </h2>
+          <p className="mt-2 text-muted-foreground">
+            Concise by vertical. Scope is tailored to your assets and risks.
+          </p>
+          <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {USE_CASES.map((uc) => (
+              <article
+                key={uc.vertical}
+                className="rounded-xl border border-border bg-card p-5"
+              >
+                <h3 className="font-semibold text-foreground">{uc.vertical}</h3>
+                <p className="mt-2 text-xs font-medium uppercase tracking-wider text-muted-foreground">
+                  Asset
+                </p>
+                <p className="mt-0.5 text-sm text-foreground">{uc.asset}</p>
+                <p className="mt-2 text-xs font-medium uppercase tracking-wider text-muted-foreground">
+                  Risk
+                </p>
+                <p className="mt-0.5 text-sm text-foreground">{uc.risk}</p>
+                <p className="mt-2 text-xs font-medium uppercase tracking-wider text-muted-foreground">
+                  Monitored variables
+                </p>
+                <p className="mt-0.5 text-sm text-foreground">{uc.variables}</p>
+                <p className="mt-2 text-xs font-medium uppercase tracking-wider text-muted-foreground">
+                  Operational outcome
+                </p>
+                <p className="mt-0.5 text-sm text-foreground">{uc.outcome}</p>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* 6. Why Our Approach */}
+      <section className="border-b border-border bg-muted/40 px-6 py-16 sm:px-8 lg:px-12">
         <div className="mx-auto max-w-2xl">
           <h2 className="text-xl font-bold text-foreground sm:text-2xl">
-            Our approach
+            Why our approach
           </h2>
-          <ul className="mt-6 space-y-4 text-muted-foreground">
-            <li className="flex items-start gap-3">
-              <Check className="mt-0.5 size-5 shrink-0 text-navy" />
-              <span>
-                We focus on practical diagnostics—what’s actually failing and
-                why.
-              </span>
-            </li>
-            <li className="flex items-start gap-3">
-              <Check className="mt-0.5 size-5 shrink-0 text-navy" />
-              <span>
-                We design systems for environments where reliability matters.
-              </span>
-            </li>
-            <li className="flex items-start gap-3">
-              <Check className="mt-0.5 size-5 shrink-0 text-navy" />
-              <span>
-                We prefer measurable operational impact over marketing claims.
-              </span>
-            </li>
+          <ul className="mt-6 space-y-3">
+            {WHY_APPROACH.map((point) => (
+              <li
+                key={point}
+                className="flex items-start gap-3 text-muted-foreground"
+              >
+                <Check className="mt-0.5 size-5 shrink-0 text-navy" />
+                <span>{point}</span>
+              </li>
+            ))}
           </ul>
         </div>
       </section>
 
-      {/* 6. Final CTA */}
+      {/* 7. Final CTA */}
       <section
         id="contact"
         className="cta-gradient relative overflow-hidden px-6 py-20 text-white sm:px-8 lg:px-12"
@@ -370,11 +434,10 @@ export default function Home() {
         />
         <div className="relative mx-auto max-w-2xl text-center">
           <h2 className="text-2xl font-bold sm:text-3xl md:text-4xl">
-            Let’s evaluate whether remote monitoring can reduce risk in your
-            operations.
+            Let’s design a monitoring system that fits your operations.
           </h2>
           <p className="mt-6 text-lg text-white/90">
-            Focused pilot. Clear scope. Measurable results.
+            Defined scope. Full-stack responsibility. Measurable results.
           </p>
           <div className="mt-10 flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
             <Button
@@ -395,8 +458,11 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Footer / Contact */}
-      <footer className="border-t border-border bg-white px-6 py-10 dark:bg-card sm:px-8 lg:px-12" aria-label="Contact">
+      {/* Footer */}
+      <footer
+        className="border-t border-border bg-white px-6 py-10 dark:bg-card sm:px-8 lg:px-12"
+        aria-label="Contact"
+      >
         <div className="mx-auto flex max-w-4xl flex-col items-center justify-between gap-6 sm:flex-row sm:flex-wrap">
           <h3 className="text-base font-semibold text-foreground sm:text-lg">
             Contact
@@ -418,7 +484,12 @@ export default function Home() {
               <Linkedin className="size-4 shrink-0" />
               <span>LinkedIn</span>
             </a>
-            <Button asChild size="sm" variant="outline" className="border-navy/30 text-navy hover:bg-navy/5">
+            <Button
+              asChild
+              size="sm"
+              variant="outline"
+              className="border-navy/30 text-navy hover:bg-navy/5"
+            >
               <a
                 href="https://calendly.com/example"
                 target="_blank"

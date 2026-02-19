@@ -16,9 +16,9 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Remote Monitoring Systems for Industrial & Infrastructure Assets",
+  title: "End-to-End Industrial Monitoring Systems",
   description:
-    "Practical sensor-based monitoring for manufacturing, agriculture, cold storage, energy, and water. Edge + cloud. Pilot-based engagement.",
+    "We design, build, and deploy complete monitoring systems — from sensors to cloud dashboards. Full-stack ownership for equipment, utilities, and infrastructure.",
 };
 
 const themeScript = `
