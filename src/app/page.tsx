@@ -14,6 +14,9 @@ import {
   Zap,
   Gauge,
   Check,
+  Layers,
+  Wrench,
+  LayoutDashboard,
 } from "lucide-react";
 
 function HeroVisual() {
@@ -124,6 +127,14 @@ const WHAT_WE_DO = [
   { icon: CalendarCheck, label: "30-day pilot deployment model" },
 ] as const;
 
+const END_TO_END = [
+  { icon: Layers, label: "We design our own edge devices" },
+  { icon: Wrench, label: "Board-level assembly & on-site installation" },
+  { icon: Cloud, label: "Cloud communication & data ingestion" },
+  { icon: LayoutDashboard, label: "Dedicated dashboards per client" },
+  { icon: Bell, label: "Alerts delivered to your team" },
+] as const;
+
 const PILOT_STEPS = [
   { step: 1, title: "20-minute discovery call" },
   { step: 2, title: "Define monitoring scope (1–2 assets)" },
@@ -191,6 +202,39 @@ export default function Home() {
                     <Icon className="size-4" />
                   </div>
                   <span>{item.label}</span>
+                </li>
+              );
+            })}
+          </ul>
+        </div>
+      </section>
+
+      {/* End-to-end delivery */}
+      <section className="border-b border-border px-6 py-16 sm:px-8 lg:px-12">
+        <div className="mx-auto max-w-3xl">
+          <h2 className="text-xl font-bold text-foreground sm:text-2xl">
+            End-to-end delivery
+          </h2>
+          <p className="mt-3 text-muted-foreground">
+            We design solutions from device to dashboard: our own edge hardware
+            (designed by us, assembled at board level, installed on site),
+            secure cloud connectivity, and dedicated dashboards with alerts for
+            your operations team.
+          </p>
+          <ul className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {END_TO_END.map((item) => {
+              const Icon = item.icon;
+              return (
+                <li
+                  key={item.label}
+                  className="flex items-start gap-3 rounded-lg border border-border bg-card p-4"
+                >
+                  <div className="flex size-10 shrink-0 items-center justify-center rounded-lg bg-navy/10 text-navy dark:bg-navy/20">
+                    <Icon className="size-5" />
+                  </div>
+                  <span className="text-sm font-medium text-foreground">
+                    {item.label}
+                  </span>
                 </li>
               );
             })}
