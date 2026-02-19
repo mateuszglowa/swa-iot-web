@@ -1,36 +1,98 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Remote Monitoring – One-Page Site
 
-## Getting Started
+A static one-page website for an industrial sensing and remote monitoring engineering team. The site targets operations-focused decision-makers (maintenance managers, plant managers, farm operators, infrastructure operators) and encourages intro-call signups for 30-day pilot projects.
 
-First, run the development server:
+## What’s included
+
+- **Hero** – Headline, 30-day pilot badge, primary and secondary CTAs  
+- **What we do** – Capabilities (sensor integration, edge, cloud, alerting, pilot model)  
+- **Industries & use cases** – Five verticals: manufacturing, agricultural water, cold storage, energy, water treatment  
+- **Pilot model** – Five-step process and reassurance (no long-term commitment)  
+- **Our approach** – Short, no-hype positioning  
+- **Final CTA** – Contact block and footer (email, LinkedIn, schedule call)  
+- **Dark mode** – Toggle with persistence via `localStorage`
+
+## Tech stack
+
+- **Next.js 16** (App Router)
+- **React 19**
+- **Tailwind CSS v4**
+- **shadcn/ui** (Button and theme)
+- **Lucide React** (icons)
+- **TypeScript**
+
+The app is built as a **static export** (`output: "export"` in `next.config.ts`). No server or API routes; suitable for any static host.
+
+## Prerequisites
+
+- Node.js 18+
+- npm (or yarn / pnpm / bun)
+
+## Getting started
+
+Install dependencies:
+
+```bash
+npm install
+```
+
+Run the development server:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Build and deploy
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Produce a static export:
 
-## Learn More
+```bash
+npm run build
+```
 
-To learn more about Next.js, take a look at the following resources:
+Output is written to the **`out/`** directory. Deploy the contents of `out/` to any static host (e.g. Vercel, Netlify, GitHub Pages, S3, Cloudflare Pages).
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+To preview the production build locally:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```bash
+npm run build
+npx serve out
+```
 
-## Deploy on Vercel
+## Project structure
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```
+src/
+├── app/
+│   ├── layout.tsx    # Root layout, fonts, theme script, ThemeProvider
+│   ├── page.tsx      # Single-page content and sections
+│   └── globals.css   # Tailwind, theme variables, dark mode, utilities
+├── components/
+│   ├── theme-provider.tsx   # Client theme context and localStorage
+│   ├── theme-toggle.tsx     # Dark/light switch (fixed top-right)
+│   └── ui/
+│       └── button.tsx      # shadcn Button
+└── lib/
+    └── utils.ts      # cn() for class names
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Customization
+
+- **Contact details** – Update the placeholder email, LinkedIn URL, and Calendly (or booking) link in `src/app/page.tsx` (footer and CTA button).
+- **Theme** – Colors and dark mode are defined in `src/app/globals.css` (`:root` and `.dark`). Navy and accent-industrial are used for primary actions and highlights.
+- **Content** – Copy and use-case data live in `src/app/page.tsx` (constants and JSX).
+
+## Scripts
+
+| Command        | Description                    |
+|----------------|--------------------------------|
+| `npm run dev`  | Start dev server (Turbopack)   |
+| `npm run build`| Static export into `out/`      |
+| `npm run start`| Serve production build (needs prior `build`) |
+| `npm run lint` | Run ESLint                     |
+
+## License
+
+Private. All rights reserved.
