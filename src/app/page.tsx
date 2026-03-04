@@ -7,6 +7,7 @@ import {
   ArrowRight,
   User,
   Phone,
+  LayoutDashboard,
 } from "lucide-react";
 
 function HeroVisual() {
@@ -132,6 +133,27 @@ const E2E_LAYERS = [
       "Threshold-based alerts",
       "Structured reporting",
     ],
+  },
+] as const;
+
+const DEMO_DASHBOARDS = [
+  {
+    id: "vibration",
+    title: "Vibration & condition monitoring",
+    description: "Real-time asset health, trend analysis, alert thresholds.",
+    image: null, // Replace with "/demo-vibration.jpg" when ready
+  },
+  {
+    id: "energy",
+    title: "Energy consumption",
+    description: "Per-machine usage, load patterns, peak identification.",
+    image: null, // Replace with "/demo-energy.jpg" when ready
+  },
+  {
+    id: "environment",
+    title: "Temperature & environment",
+    description: "Zone monitoring, compliance tracking, event logs.",
+    image: null, // Replace with "/demo-environment.jpg" when ready
   },
 ] as const;
 
@@ -300,7 +322,8 @@ export default function Home() {
           </h2>
           <p className="mt-3 text-muted-foreground">
             We own the entire system architecture — from sensors to dashboards —
-            not just a single layer.
+            not just a single layer. Alerting, data analysis, and live
+            monitoring dashboards tailored to your operations.
           </p>
           <div className="mt-8 flex justify-center">
             <EndToEndDiagram />
@@ -327,6 +350,50 @@ export default function Home() {
                 </ul>
               </div>
             ))}
+          </div>
+
+          {/* Dashboard demo preview */}
+          <div className="mt-14">
+            <h3 className="text-lg font-semibold text-foreground">
+              Monitoring dashboards & demo
+            </h3>
+            <p className="mt-2 text-sm text-muted-foreground">
+              Beyond alerting and data analysis — we deliver live dashboards
+              tailored to your operations. See what visibility looks like.
+            </p>
+            <div className="mt-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+              {DEMO_DASHBOARDS.map((demo) => (
+                <article
+                  key={demo.id}
+                  className="overflow-hidden rounded-xl border border-border bg-card"
+                >
+                  <div className="aspect-video bg-muted/50">
+                    {demo.image ? (
+                      <img
+                        src={demo.image}
+                        alt={demo.title}
+                        className="size-full object-cover"
+                      />
+                    ) : (
+                      <div
+                        className="flex size-full items-center justify-center border-b border-border"
+                        aria-label="Dashboard preview placeholder"
+                      >
+                        <LayoutDashboard className="size-16 text-muted-foreground/40" />
+                      </div>
+                    )}
+                  </div>
+                  <div className="p-4">
+                    <h4 className="font-semibold text-foreground">
+                      {demo.title}
+                    </h4>
+                    <p className="mt-1 text-sm text-muted-foreground">
+                      {demo.description}
+                    </p>
+                  </div>
+                </article>
+              ))}
+            </div>
           </div>
         </div>
       </section>
