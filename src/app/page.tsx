@@ -45,31 +45,49 @@ function HeroVisual() {
 }
 
 function EndToEndDiagram() {
+  const blocks = [
+    { label: "Sensor", num: "1" },
+    { label: "Edge", num: "2" },
+    { label: "Cloud", num: "3" },
+    { label: "Visibility", num: "4" },
+  ];
   return (
     <div
-      className="mx-auto max-w-3xl rounded-xl border-2 border-border bg-card p-4 dark:bg-card sm:p-6"
+      className="mx-auto w-full max-w-3xl rounded-xl border-2 border-border bg-card p-5 dark:bg-card sm:p-6 lg:p-8"
       aria-hidden
     >
-      <div className="flex flex-col gap-3 sm:flex-row sm:items-stretch sm:gap-2">
-        {[
-          { label: "Sensor", short: "1" },
-          { label: "Edge", short: "2" },
-          { label: "Cloud", short: "3" },
-          { label: "Visibility", short: "4" },
-        ].map((block, i) => (
-          <div key={block.label} className="flex flex-1 items-center gap-2 sm:flex-col sm:gap-1">
-            <div className="flex flex-1 items-center justify-center rounded-lg border border-border bg-muted/50 py-3 text-center dark:bg-muted">
-              <span className="text-xs font-semibold uppercase tracking-wider text-muted-foreground sm:text-[10px]">
+      {/* Mobile: stacked */}
+      <div className="flex flex-col gap-4 sm:hidden">
+        {blocks.map((block) => (
+          <div
+            key={block.label}
+            className="flex min-h-12 items-center justify-center rounded-lg border border-border bg-muted/50 px-4 py-4 text-center dark:bg-muted"
+          >
+            <span className="text-sm font-semibold uppercase tracking-wider text-muted-foreground">
+              {block.label}
+            </span>
+          </div>
+        ))}
+      </div>
+      {/* Desktop: row with arrows between */}
+      <div className="hidden sm:flex sm:items-center sm:justify-between sm:gap-2 lg:gap-4">
+        {blocks.map((block, i) => (
+          <div key={block.label} className="flex flex-1 items-center gap-2 lg:gap-4">
+            <div className="flex min-h-18 flex-1 items-center justify-center rounded-lg border border-border bg-muted/50 px-3 py-4 text-center dark:bg-muted lg:min-h-20 lg:px-4 lg:py-5">
+              <span className="text-sm font-semibold uppercase tracking-wider text-muted-foreground lg:text-base">
                 {block.label}
               </span>
             </div>
-            {i < 3 && (
-              <ArrowRight className="hidden shrink-0 text-muted-foreground sm:block" aria-hidden />
+            {i < blocks.length - 1 && (
+              <ArrowRight
+                className="size-5 shrink-0 text-muted-foreground lg:size-6"
+                aria-hidden
+              />
             )}
           </div>
         ))}
       </div>
-      <p className="mt-3 text-center text-xs text-muted-foreground">
+      <p className="mt-4 text-center text-sm text-muted-foreground sm:mt-5">
         We own the entire system architecture — not just a single layer.
       </p>
     </div>
@@ -232,7 +250,7 @@ export default function Home() {
         id="what-e2e"
         className="border-b border-border bg-muted/40 px-6 py-16 sm:px-8 lg:px-12"
       >
-        <div className="mx-auto max-w-4xl">
+        <div className="mx-auto max-w-5xl">
           <h2 className="text-xl font-bold text-foreground sm:text-2xl">
             What end-to-end means
           </h2>
@@ -240,10 +258,10 @@ export default function Home() {
             We own the entire system architecture — from sensors to dashboards —
             not just a single layer.
           </p>
-          <div className="mt-8">
+          <div className="mt-8 flex justify-center">
             <EndToEndDiagram />
           </div>
-          <div className="mt-10 grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="mt-10 grid gap-6 sm:grid-cols-2 xl:grid-cols-4">
             {E2E_LAYERS.map((layer) => (
               <div
                 key={layer.id}
@@ -276,7 +294,7 @@ export default function Home() {
             Problems we solve
           </h2>
           <p className="mt-2 text-muted-foreground">
-            We reduce operational risk where it matters.
+          We build custom monitoring systems combining embedded devices, edge data processing, and cloud dashboards for asset-heavy environments.
           </p>
           <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {PROBLEMS.map((problem) => (
