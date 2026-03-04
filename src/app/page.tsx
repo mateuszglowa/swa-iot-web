@@ -164,7 +164,7 @@ const USE_CASES = [
     asset: "Motors, bearings, compressors",
     risk: "Unplanned downtime, recurring failures",
     variables: "Vibration, temperature, pressure, runtime",
-    outcome: "Early fault detection, reduced unplanned downtime",
+    outcome: "Prevent failures that cost your company an average of 50,000+ zł per hour of downtime",
   },
   {
     vertical: "Irrigation & Agriculture",
@@ -185,7 +185,7 @@ const USE_CASES = [
     asset: "Machine-level consumption",
     risk: "Rising costs, no visibility into peaks or waste",
     variables: "Per-machine consumption, load patterns, peak usage",
-    outcome: "Data-driven optimization",
+    outcome: "Clients reduce energy waste by an average of 15%. Data-driven optimization.",
   },
   {
     vertical: "Pump Stations & Water Treatment",
@@ -193,6 +193,33 @@ const USE_CASES = [
     risk: "Remote blind spots, manual logs",
     variables: "Tank levels, pump runtime, temperature, alarms",
     outcome: "Remote visibility, faster incident response",
+  },
+] as const;
+
+const RECENT_PROJECTS = [
+  {
+    industry: "Manufacturing",
+    title: "Production line vibration monitoring",
+    scope: "3 critical motors, 30-day pilot",
+    outcome: "Early bearing fault detected; planned maintenance vs. unplanned downtime.",
+  },
+  {
+    industry: "Cold storage",
+    title: "Compressor & temperature zone monitoring",
+    scope: "2 zones, 4 compressors",
+    outcome: "Compliance visibility, reduced spoilage risk.",
+  },
+  {
+    industry: "Pump station",
+    title: "Remote tank level & pump runtime visibility",
+    scope: "1 site, 2 pumps",
+    outcome: "Replaced manual logs with real-time alerts.",
+  },
+  {
+    industry: "Energy",
+    title: "Machine-level consumption tracking",
+    scope: "5 machines, load pattern analysis",
+    outcome: "Identified 12% waste; optimization roadmap delivered.",
   },
 ] as const;
 
@@ -417,8 +444,41 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 6. Why Our Approach */}
+      {/* 5b. Recent Projects */}
       <section className="border-b border-border bg-muted/40 px-6 py-16 sm:px-8 lg:px-12">
+        <div className="mx-auto max-w-5xl">
+          <h2 className="text-xl font-bold text-foreground sm:text-2xl">
+            Recent projects
+          </h2>
+          <p className="mt-2 text-muted-foreground">
+            Representative examples of monitoring systems we have delivered.
+          </p>
+          <div className="mt-8 grid gap-4 sm:grid-cols-2">
+            {RECENT_PROJECTS.map((project) => (
+              <article
+                key={project.title}
+                className="rounded-xl border border-border bg-card p-5"
+              >
+                <span className="text-xs font-medium uppercase tracking-wider text-muted-foreground">
+                  {project.industry}
+                </span>
+                <h3 className="mt-1 font-semibold text-foreground">
+                  {project.title}
+                </h3>
+                <p className="mt-2 text-sm text-muted-foreground">
+                  {project.scope}
+                </p>
+                <p className="mt-2 text-sm font-medium text-foreground">
+                  {project.outcome}
+                </p>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* 6. Why Our Approach */}
+      <section className="border-b border-border px-6 py-16 sm:px-8 lg:px-12">
         <div className="mx-auto max-w-2xl">
           <h2 className="text-xl font-bold text-foreground sm:text-2xl">
             Why our approach
