@@ -8,6 +8,10 @@ import {
   User,
   Phone,
   LayoutDashboard,
+  TrendingUp,
+  Zap,
+  ShieldCheck,
+  AlertTriangle,
 } from "lucide-react";
 
 function HeroVisual() {
@@ -96,6 +100,37 @@ function EndToEndDiagram() {
     </div>
   );
 }
+
+const ROI_SCENARIOS = [
+  {
+    id: "downtime",
+    icon: AlertTriangle,
+    amount: "50 000+ zł",
+    unit: "per avoided hour of downtime",
+    scenario: "Manufacturing: early bearing fault detected → planned maintenance instead of line stop.",
+  },
+  {
+    id: "energy",
+    icon: Zap,
+    amount: "15%",
+    unit: "energy waste reduction",
+    scenario: "Energy: per-machine visibility revealed idle waste. Clients cut bills by 12–18%.",
+  },
+  {
+    id: "spoilage",
+    icon: ShieldCheck,
+    amount: "Compliance + spoilage",
+    unit: "risk reduced",
+    scenario: "Cold storage: temperature drift alerts prevent product loss and audit gaps.",
+  },
+  {
+    id: "remote",
+    icon: TrendingUp,
+    amount: "24/7 visibility",
+    unit: "replaces manual logs",
+    scenario: "Pump stations: remote alerts instead of site visits. Faster response, lower cost.",
+  },
+] as const;
 
 const E2E_LAYERS = [
   {
@@ -277,19 +312,14 @@ export default function Home() {
         <div className="mx-auto max-w-2xl text-center">
           <HeroVisual />
           <span className="mt-6 inline-block rounded-full border border-navy/20 bg-navy/5 px-4 py-1.5 text-xs font-medium uppercase tracking-wider text-navy dark:border-white/30 dark:bg-white/15 dark:text-white">
-            30-day pilot
+            30-day pilot · Low risk
           </span>
           <h1 className="mt-6 text-3xl font-bold tracking-tight text-foreground sm:text-4xl md:text-5xl md:leading-tight">
-            End-to-End Industrial Monitoring Systems
+            Industrial monitoring that pays for itself
           </h1>
           <p className="mt-5 text-lg text-muted-foreground sm:text-xl">
-            From physical sensors to actionable cloud insights — we design and
-            deploy complete monitoring solutions for real-world operations.
-          </p>
-          <p className="mt-3 text-base text-muted-foreground">
-            We build reliable monitoring systems for equipment, utilities, and
-            infrastructure where downtime and blind spots create operational
-            risk.
+            Prevent downtime. Cut energy waste. Get visibility. Real ROI from
+            day one.
           </p>
           <div className="mt-10 flex flex-col items-center justify-center gap-3 sm:flex-row">
             <Button
@@ -297,7 +327,7 @@ export default function Home() {
               size="lg"
               className="w-full min-w-[200px] shadow-lg shadow-navy/20 transition-all hover:shadow-xl hover:shadow-navy/25 sm:w-auto"
             >
-              <a href="#contact">Schedule Intro Call</a>
+              <a href="#roi">See savings examples</a>
             </Button>
             <Button
               asChild
@@ -305,45 +335,89 @@ export default function Home() {
               size="lg"
               className="w-full min-w-[200px] border-2 border-foreground/20 hover:border-accent-industrial hover:bg-accent-industrial/5 hover:text-foreground sm:w-auto"
             >
-              <a href="#what-e2e">See How It Works</a>
+              <a href="#contact">Schedule intro call</a>
             </Button>
           </div>
         </div>
       </section>
 
-      {/* 2. What End-to-End Means */}
+      {/* 2. ROI Scenarios — main focus */}
       <section
-        id="what-e2e"
+        id="roi"
         className="border-b border-border bg-muted/40 px-6 py-16 sm:px-8 lg:px-12"
       >
         <div className="mx-auto max-w-5xl">
-          <h2 className="text-xl font-bold text-foreground sm:text-2xl">
-            What end-to-end means
+          <h2 className="text-center text-2xl font-bold text-foreground sm:text-3xl">
+            What clients save
           </h2>
-          <p className="mt-3 text-muted-foreground">
-            We own the entire system architecture — from sensors to dashboards —
-            not just a single layer. Alerting, data analysis, and live
-            monitoring dashboards tailored to your operations.
+          <p className="mt-2 text-center text-muted-foreground">
+            Real scenarios. Measurable ROI.
+          </p>
+          <div className="mt-10 grid gap-6 sm:grid-cols-2">
+            {ROI_SCENARIOS.map((item) => {
+              const Icon = item.icon;
+              return (
+                <article
+                  key={item.id}
+                  className="flex gap-5 rounded-xl border border-border bg-card p-6 shadow-sm transition-shadow hover:shadow-md"
+                >
+                  <div className="flex size-12 shrink-0 items-center justify-center rounded-xl bg-navy/10 text-navy dark:bg-white/15">
+                    <Icon className="size-6" />
+                  </div>
+                  <div className="min-w-0 flex-1">
+                    <p className="text-xl font-bold text-foreground sm:text-2xl">
+                      {item.amount}
+                    </p>
+                    <p className="mt-0.5 text-sm font-medium text-muted-foreground">
+                      {item.unit}
+                    </p>
+                    <p className="mt-3 text-sm text-muted-foreground">
+                      {item.scenario}
+                    </p>
+                  </div>
+                </article>
+              );
+            })}
+          </div>
+          <div className="mt-10 text-center">
+            <Button asChild size="lg" variant="outline">
+              <a href="#contact">Get your ROI estimate</a>
+            </Button>
+          </div>
+        </div>
+      </section>
+
+      {/* 3. What End-to-End Means */}
+      <section
+        id="what-e2e"
+        className="border-b border-border px-6 py-12 sm:px-8 lg:px-12"
+      >
+        <div className="mx-auto max-w-5xl">
+          <h2 className="text-center text-xl font-bold text-foreground sm:text-2xl">
+            How it works
+          </h2>
+          <p className="mt-2 text-center text-sm text-muted-foreground">
+            Sensors → Edge → Cloud → Dashboards & alerts. We own the full stack.
           </p>
           <div className="mt-8 flex justify-center">
             <EndToEndDiagram />
           </div>
-          <div className="mt-10 grid gap-6 sm:grid-cols-2 xl:grid-cols-4">
+          <div className="mt-8 grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
             {E2E_LAYERS.map((layer) => (
               <div
                 key={layer.id}
-                className="rounded-xl border border-border bg-card p-5"
+                className="rounded-lg border border-border bg-card px-4 py-3"
               >
-                <h3 className="font-semibold text-foreground">
+                <h3 className="font-semibold text-foreground text-sm">
                   {layer.title}
                 </h3>
-                <ul className="mt-3 space-y-1.5">
+                <ul className="mt-2 space-y-1">
                   {layer.bullets.map((b) => (
                     <li
                       key={b}
-                      className="flex items-start gap-2 text-sm text-muted-foreground"
+                      className="flex items-start gap-2 text-xs text-muted-foreground"
                     >
-                      <Check className="mt-0.5 size-4 shrink-0 text-navy" />
+                      <Check className="mt-0.5 size-3 shrink-0 text-navy" />
                       <span>{b}</span>
                     </li>
                   ))}
@@ -353,15 +427,11 @@ export default function Home() {
           </div>
 
           {/* Dashboard demo preview */}
-          <div className="mt-14">
-            <h3 className="text-lg font-semibold text-foreground">
-              Monitoring dashboards & demo
+          <div className="mt-10">
+            <h3 className="text-center text-base font-semibold text-foreground">
+              Dashboards & demos
             </h3>
-            <p className="mt-2 text-sm text-muted-foreground">
-              Beyond alerting and data analysis — we deliver live dashboards
-              tailored to your operations. See what visibility looks like.
-            </p>
-            <div className="mt-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            <div className="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
               {DEMO_DASHBOARDS.map((demo) => (
                 <article
                   key={demo.id}
@@ -398,50 +468,44 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 3. Problems We Solve */}
-      <section className="border-b border-border px-6 py-16 sm:px-8 lg:px-12">
+      {/* 4. Problems We Solve */}
+      <section className="border-b border-border bg-muted/40 px-6 py-10 sm:px-8 lg:px-12">
         <div className="mx-auto max-w-4xl">
-          <h2 className="text-xl font-bold text-foreground sm:text-2xl">
-            Problems we solve
+          <h2 className="text-center text-lg font-bold text-foreground">
+            We fix
           </h2>
-          <p className="mt-2 text-muted-foreground">
-          We build custom monitoring systems combining embedded devices, edge data processing, and cloud dashboards for asset-heavy environments.
-          </p>
-          <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="mt-6 flex flex-wrap justify-center gap-3">
             {PROBLEMS.map((problem) => (
-              <div
+              <span
                 key={problem}
-                className="rounded-lg border border-border bg-card px-4 py-3"
+                className="rounded-full border border-border bg-card px-4 py-2 text-sm font-medium text-foreground"
               >
-                <p className="text-sm font-medium text-foreground">{problem}</p>
-              </div>
+                {problem}
+              </span>
             ))}
           </div>
         </div>
       </section>
 
-      {/* 4. How We Deliver */}
+      {/* 5. How We Deliver */}
       <section
         id="how-it-works"
-        className="border-b border-border bg-muted/40 px-6 py-16 sm:px-8 lg:px-12"
+        className="border-b border-border px-6 py-10 sm:px-8 lg:px-12"
       >
         <div className="mx-auto max-w-3xl">
-          <h2 className="text-xl font-bold text-foreground sm:text-2xl">
+          <h2 className="text-center text-lg font-bold text-foreground">
             How we deliver
           </h2>
-          <p className="mt-2 text-muted-foreground">
-            Clear scope. Defined pilot. Measurable outcome. Low-risk entry.
-          </p>
-          <ol className="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          <ol className="mt-6 flex flex-wrap justify-center gap-3">
             {DELIVERY_STEPS.map((step, i) => (
               <li
                 key={step}
-                className="flex items-start gap-3 rounded-lg border border-border bg-card p-4"
+                className="flex items-center gap-2 rounded-lg border border-border bg-card px-4 py-2"
               >
-                <span className="flex size-8 shrink-0 items-center justify-center rounded-lg bg-navy text-sm font-bold text-navy-foreground">
+                <span className="flex size-6 shrink-0 items-center justify-center rounded bg-navy text-xs font-bold text-navy-foreground">
                   {i + 1}
                 </span>
-                <span className="text-sm font-semibold text-foreground">
+                <span className="text-sm font-medium text-foreground">
                   {step}
                 </span>
               </li>
@@ -450,109 +514,76 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 4b. 30-day pilot – How our pilot works */}
+      {/* 5b. 30-day pilot */}
       <section
         id="pilot"
-        className="border-b border-border px-6 py-16 sm:px-8 lg:px-12"
+        className="border-b border-border bg-muted/40 px-6 py-10 sm:px-8 lg:px-12"
       >
         <div className="mx-auto max-w-3xl">
-          <h2 className="text-xl font-bold text-foreground sm:text-2xl">
-            30-day pilot
+          <h2 className="text-center text-lg font-bold text-foreground">
+            30-day pilot — no commitment
           </h2>
-          <p className="mt-2 text-muted-foreground">
-            Low-risk way to start. We handle configuration and analysis; you get
-            a clear report with findings and next-step options.
-          </p>
-          <div className="mt-8 rounded-2xl border-2 border-border bg-muted/30 p-6 sm:p-8">
-            <h3 className="text-base font-semibold text-foreground">
-              How our pilot works
-            </h3>
-            <ol className="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-5 sm:gap-2">
+          <div className="mt-6 rounded-xl border-2 border-border bg-card p-6">
+            <ol className="flex flex-wrap justify-center gap-4 sm:gap-6">
               {PILOT_STEPS.map((item) => (
                 <li
                   key={item.step}
-                  className="flex flex-col items-center gap-2 text-center"
+                  className="flex flex-col items-center gap-1 text-center"
                 >
-                  <span className="flex size-10 shrink-0 items-center justify-center rounded-xl bg-navy text-sm font-bold text-navy-foreground shadow shadow-navy/20">
+                  <span className="flex size-9 shrink-0 items-center justify-center rounded-lg bg-navy text-xs font-bold text-navy-foreground">
                     {item.step}
                   </span>
-                  <span className="text-sm font-semibold text-foreground">
+                  <span className="max-w-[120px] text-xs font-medium text-foreground">
                     {item.title}
                   </span>
                 </li>
               ))}
             </ol>
           </div>
-          <p className="mt-6 flex items-start gap-2 text-sm text-muted-foreground">
-            <Check className="mt-0.5 size-4 shrink-0 text-navy" />
-            <span>No long-term commitment required for pilot phase.</span>
-          </p>
         </div>
       </section>
 
-      {/* 5. Use Case Examples */}
-      <section className="border-b border-border px-6 py-16 sm:px-8 lg:px-12">
+      {/* 6. Use Cases — ROI focus */}
+      <section className="border-b border-border px-6 py-10 sm:px-8 lg:px-12">
         <div className="mx-auto max-w-5xl">
-          <h2 className="text-xl font-bold text-foreground sm:text-2xl">
-            Use case examples
+          <h2 className="text-center text-lg font-bold text-foreground">
+            ROI by industry
           </h2>
-          <p className="mt-2 text-muted-foreground">
-            Concise by vertical. Scope is tailored to your assets and risks.
-          </p>
-          <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {USE_CASES.map((uc) => (
               <article
                 key={uc.vertical}
-                className="rounded-xl border border-border bg-card p-5"
+                className="rounded-xl border border-border bg-card p-4"
               >
                 <h3 className="font-semibold text-foreground">{uc.vertical}</h3>
-                <p className="mt-2 text-xs font-medium uppercase tracking-wider text-muted-foreground">
-                  Asset
+                <p className="mt-2 text-sm font-medium text-navy">
+                  {uc.outcome}
                 </p>
-                <p className="mt-0.5 text-sm text-foreground">{uc.asset}</p>
-                <p className="mt-2 text-xs font-medium uppercase tracking-wider text-muted-foreground">
-                  Risk
-                </p>
-                <p className="mt-0.5 text-sm text-foreground">{uc.risk}</p>
-                <p className="mt-2 text-xs font-medium uppercase tracking-wider text-muted-foreground">
-                  Monitored variables
-                </p>
-                <p className="mt-0.5 text-sm text-foreground">{uc.variables}</p>
-                <p className="mt-2 text-xs font-medium uppercase tracking-wider text-muted-foreground">
-                  Operational outcome
-                </p>
-                <p className="mt-0.5 text-sm text-foreground">{uc.outcome}</p>
               </article>
             ))}
           </div>
         </div>
       </section>
 
-      {/* 5b. Recent Projects */}
-      <section className="border-b border-border bg-muted/40 px-6 py-16 sm:px-8 lg:px-12">
+      {/* 6b. Recent Projects */}
+      <section className="border-b border-border bg-muted/40 px-6 py-10 sm:px-8 lg:px-12">
         <div className="mx-auto max-w-5xl">
-          <h2 className="text-xl font-bold text-foreground sm:text-2xl">
+          <h2 className="text-center text-lg font-bold text-foreground">
             Recent projects
           </h2>
-          <p className="mt-2 text-muted-foreground">
-            Representative examples of monitoring systems we have delivered.
-          </p>
-          <div className="mt-8 grid gap-4 sm:grid-cols-2">
+          <div className="mt-6 grid gap-4 sm:grid-cols-2">
             {RECENT_PROJECTS.map((project) => (
               <article
                 key={project.title}
-                className="rounded-xl border border-border bg-card p-5"
+                className="rounded-xl border border-border bg-card p-4"
               >
-                <span className="text-xs font-medium uppercase tracking-wider text-muted-foreground">
+                <span className="text-xs font-medium text-muted-foreground">
                   {project.industry}
                 </span>
                 <h3 className="mt-1 font-semibold text-foreground">
                   {project.title}
                 </h3>
-                <p className="mt-2 text-sm text-muted-foreground">
-                  {project.scope}
-                </p>
-                <p className="mt-2 text-sm font-medium text-foreground">
+                <p className="mt-2 text-sm font-medium text-navy">
                   {project.outcome}
                 </p>
               </article>
@@ -561,19 +592,19 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 6. Why Our Approach */}
-      <section className="border-b border-border px-6 py-16 sm:px-8 lg:px-12">
+      {/* 7. Why Us */}
+      <section className="border-b border-border px-6 py-10 sm:px-8 lg:px-12">
         <div className="mx-auto max-w-2xl">
-          <h2 className="text-xl font-bold text-foreground sm:text-2xl">
-            Why our approach
+          <h2 className="text-center text-lg font-bold text-foreground">
+            Why us
           </h2>
-          <ul className="mt-6 space-y-3">
+          <ul className="mt-6 grid gap-3 sm:grid-cols-2">
             {WHY_APPROACH.map((point) => (
               <li
                 key={point}
-                className="flex items-start gap-3 text-muted-foreground"
+                className="flex items-start gap-2 rounded-lg border border-border bg-card px-4 py-2 text-sm text-muted-foreground"
               >
-                <Check className="mt-0.5 size-5 shrink-0 text-navy" />
+                <Check className="mt-0.5 size-4 shrink-0 text-navy" />
                 <span>{point}</span>
               </li>
             ))}
@@ -581,45 +612,40 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 6b. About Us */}
-      <section className="border-b border-border bg-muted/40 px-6 py-16 sm:px-8 lg:px-12">
+      {/* 7b. About Us */}
+      <section className="border-b border-border bg-muted/40 px-6 py-10 sm:px-8 lg:px-12">
         <div className="mx-auto max-w-4xl">
-          <h2 className="text-xl font-bold text-foreground sm:text-2xl">
+          <h2 className="text-center text-lg font-bold text-foreground">
             About us
           </h2>
-          <p className="mt-2 text-muted-foreground">
-            We combine deep technical expertise with hands-on experience in
-            industrial operations. Our team has built and deployed monitoring
-            systems across manufacturing, utilities, and cold chain.
-          </p>
-          <div className="mt-10 space-y-10">
+          <div className="mt-6 grid gap-6 sm:grid-cols-2">
             {FOUNDERS.map((founder) => (
               <article
                 key={founder.name + founder.role}
-                className="flex flex-col gap-6 rounded-xl border border-border bg-card p-6 sm:flex-row sm:items-start"
+                className="flex gap-4 rounded-xl border border-border bg-card p-4"
               >
                 <div className="flex shrink-0">
                   {founder.image ? (
                     <img
                       src={founder.image}
                       alt={founder.name}
-                      className="size-24 rounded-xl object-cover sm:size-28"
+                      className="size-16 rounded-lg object-cover sm:size-20"
                     />
                   ) : (
                     <div
-                      className="flex size-24 items-center justify-center rounded-xl border-2 border-dashed border-muted-foreground/30 bg-muted/50 sm:size-28"
+                      className="flex size-16 items-center justify-center rounded-lg border-2 border-dashed border-muted-foreground/30 bg-muted/50 sm:size-20"
                       aria-label="Photo placeholder"
                     >
-                      <User className="size-10 text-muted-foreground/50" />
+                      <User className="size-8 text-muted-foreground/50" />
                     </div>
                   )}
                 </div>
                 <div className="min-w-0 flex-1">
                   <h3 className="font-semibold text-foreground">{founder.name}</h3>
-                  <p className="mt-0.5 text-sm font-medium text-muted-foreground">
+                  <p className="mt-0.5 text-xs font-medium text-muted-foreground">
                     {founder.role}
                   </p>
-                  <p className="mt-3 text-sm text-muted-foreground leading-relaxed">
+                  <p className="mt-2 text-xs text-muted-foreground">
                     {founder.bio}
                   </p>
                 </div>
@@ -635,12 +661,11 @@ export default function Home() {
         className="border-b border-border bg-muted/40 px-6 py-16 sm:px-8 lg:px-12"
       >
         <div className="mx-auto max-w-4xl">
-          <h2 className="text-xl font-bold text-foreground sm:text-2xl">
+          <h2 className="text-center text-xl font-bold text-foreground sm:text-2xl">
             Contact us
           </h2>
-          <p className="mt-2 text-muted-foreground">
-            Have a question or want to discuss a project? Reach out by phone,
-            email, or use the form below for technical inquiries.
+          <p className="mt-2 text-center text-sm text-muted-foreground">
+            Phone, email, or form. We reply quickly.
           </p>
 
           <div className="mt-10 grid gap-10 lg:grid-cols-2 xl:gap-16">
@@ -755,10 +780,10 @@ export default function Home() {
         />
         <div className="relative mx-auto max-w-2xl text-center">
           <h2 className="text-2xl font-bold sm:text-3xl md:text-4xl">
-            Let’s design a monitoring system that fits your operations.
+            Get your ROI estimate
           </h2>
           <p className="mt-6 text-lg text-white/90">
-            Defined scope. Full-stack responsibility. Measurable results.
+            30-day pilot. No commitment. Real numbers.
           </p>
           <div className="mt-10 flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
             <Button
