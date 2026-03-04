@@ -5,6 +5,8 @@ import {
   Calendar,
   Check,
   ArrowRight,
+  User,
+  Phone,
 } from "lucide-react";
 
 function HeroVisual() {
@@ -220,6 +222,21 @@ const RECENT_PROJECTS = [
     title: "Machine-level consumption tracking",
     scope: "5 machines, load pattern analysis",
     outcome: "Identified 12% waste; optimization roadmap delivered.",
+  },
+] as const;
+
+const FOUNDERS = [
+  {
+    name: "Founder Name",
+    role: "Co-founder & Technical Lead",
+    bio: "Background in embedded systems and industrial IoT. Previously led engineering teams building monitoring solutions for manufacturing and utilities.",
+    image: null, // Replace with "/founder-1.jpg" when ready
+  },
+  {
+    name: "Founder Name",
+    role: "Co-founder & Operations",
+    bio: "Experience in operations and client delivery. Focus on turning technical capability into measurable outcomes for asset-heavy industries.",
+    image: null, // Replace with "/founder-2.jpg" when ready
   },
 ] as const;
 
@@ -497,11 +514,170 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 7. Final CTA */}
+      {/* 6b. About Us */}
+      <section className="border-b border-border bg-muted/40 px-6 py-16 sm:px-8 lg:px-12">
+        <div className="mx-auto max-w-4xl">
+          <h2 className="text-xl font-bold text-foreground sm:text-2xl">
+            About us
+          </h2>
+          <p className="mt-2 text-muted-foreground">
+            We combine deep technical expertise with hands-on experience in
+            industrial operations. Our team has built and deployed monitoring
+            systems across manufacturing, utilities, and cold chain.
+          </p>
+          <div className="mt-10 space-y-10">
+            {FOUNDERS.map((founder) => (
+              <article
+                key={founder.name + founder.role}
+                className="flex flex-col gap-6 rounded-xl border border-border bg-card p-6 sm:flex-row sm:items-start"
+              >
+                <div className="flex shrink-0">
+                  {founder.image ? (
+                    <img
+                      src={founder.image}
+                      alt={founder.name}
+                      className="size-24 rounded-xl object-cover sm:size-28"
+                    />
+                  ) : (
+                    <div
+                      className="flex size-24 items-center justify-center rounded-xl border-2 border-dashed border-muted-foreground/30 bg-muted/50 sm:size-28"
+                      aria-label="Photo placeholder"
+                    >
+                      <User className="size-10 text-muted-foreground/50" />
+                    </div>
+                  )}
+                </div>
+                <div className="min-w-0 flex-1">
+                  <h3 className="font-semibold text-foreground">{founder.name}</h3>
+                  <p className="mt-0.5 text-sm font-medium text-muted-foreground">
+                    {founder.role}
+                  </p>
+                  <p className="mt-3 text-sm text-muted-foreground leading-relaxed">
+                    {founder.bio}
+                  </p>
+                </div>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* 7. Contact */}
       <section
         id="contact"
-        className="cta-gradient relative overflow-hidden px-6 py-20 text-white sm:px-8 lg:px-12"
+        className="border-b border-border bg-muted/40 px-6 py-16 sm:px-8 lg:px-12"
       >
+        <div className="mx-auto max-w-4xl">
+          <h2 className="text-xl font-bold text-foreground sm:text-2xl">
+            Contact us
+          </h2>
+          <p className="mt-2 text-muted-foreground">
+            Have a question or want to discuss a project? Reach out by phone,
+            email, or use the form below for technical inquiries.
+          </p>
+
+          <div className="mt-10 grid gap-10 lg:grid-cols-2 xl:gap-16">
+            <div className="space-y-6">
+              <div className="rounded-xl border border-border bg-card p-6">
+                <h3 className="font-semibold text-foreground">Get in touch</h3>
+                <ul className="mt-4 space-y-3">
+                  <li>
+                    <a
+                      href="tel:+48123456789"
+                      className="inline-flex items-center gap-2 text-muted-foreground transition-colors hover:text-foreground"
+                    >
+                      <Phone className="size-4 shrink-0" />
+                      <span>+48 123 456 789</span>
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="mailto:contact@example.com"
+                      className="inline-flex items-center gap-2 text-muted-foreground transition-colors hover:text-foreground"
+                    >
+                      <Mail className="size-4 shrink-0" />
+                      <span>contact@example.com</span>
+                    </a>
+                  </li>
+                </ul>
+                <Button asChild size="lg" className="mt-6 w-full sm:w-auto">
+                  <a
+                    href="https://calendly.com/example"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <Calendar className="size-4" />
+                    Schedule Intro Call
+                  </a>
+                </Button>
+              </div>
+            </div>
+
+            <div className="rounded-xl border border-border bg-card p-6">
+              <h3 className="font-semibold text-foreground">
+                Technical question?
+              </h3>
+              <p className="mt-1 text-sm text-muted-foreground">
+                Ask about sensors, integration, or deployment. We&apos;ll get back
+                to you shortly.
+              </p>
+              {/* Replace YOUR_FORM_ID with your Formspree form ID from formspree.io */}
+              <form
+                action="https://formspree.io/f/YOUR_FORM_ID"
+                method="POST"
+                className="mt-4 space-y-4"
+              >
+                <input
+                  type="hidden"
+                  name="_subject"
+                  value="Technical question from website"
+                />
+                <div>
+                  <label className="block text-sm font-medium text-foreground">
+                    Name
+                  </label>
+                  <input
+                    type="text"
+                    name="name"
+                    placeholder="Your name"
+                    className="mt-1.5 w-full rounded-lg border border-border bg-background px-3 py-2 text-sm text-foreground placeholder:text-muted-foreground focus:border-navy focus:outline-none focus:ring-2 focus:ring-navy/20"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-foreground">
+                    Email <span className="text-destructive">*</span>
+                  </label>
+                  <input
+                    type="email"
+                    name="email"
+                    required
+                    placeholder="you@company.com"
+                    className="mt-1.5 w-full rounded-lg border border-border bg-background px-3 py-2 text-sm text-foreground placeholder:text-muted-foreground focus:border-navy focus:outline-none focus:ring-2 focus:ring-navy/20"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-foreground">
+                    Message <span className="text-destructive">*</span>
+                  </label>
+                  <textarea
+                    name="message"
+                    required
+                    rows={4}
+                    placeholder="Your technical question..."
+                    className="mt-1.5 w-full resize-none rounded-lg border border-border bg-background px-3 py-2 text-sm text-foreground placeholder:text-muted-foreground focus:border-navy focus:outline-none focus:ring-2 focus:ring-navy/20"
+                  />
+                </div>
+                <Button type="submit" size="lg" className="w-full sm:w-auto">
+                  Send message
+                </Button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* 8. CTA */}
+      <section className="cta-gradient relative overflow-hidden px-6 py-16 text-white sm:px-8 lg:px-12">
         <div
           className="absolute inset-0 opacity-[0.03]"
           style={{
@@ -546,6 +722,13 @@ export default function Home() {
             Contact
           </h3>
           <div className="flex flex-wrap items-center justify-center gap-6 sm:gap-8">
+            <a
+              href="tel:+48123456789"
+              className="inline-flex items-center gap-2 text-foreground underline decoration-muted-foreground/40 underline-offset-2 transition-colors hover:text-navy hover:decoration-navy"
+            >
+              <Phone className="size-4 shrink-0" />
+              <span>+48 123 456 789</span>
+            </a>
             <a
               href="mailto:contact@example.com"
               className="inline-flex items-center gap-2 text-foreground underline decoration-muted-foreground/40 underline-offset-2 transition-colors hover:text-navy hover:decoration-navy"
