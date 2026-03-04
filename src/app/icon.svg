@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" fill="none">
+  <!-- Waveform - industrial monitoring signal (matches HeroVisual) -->
+  <path d="M2 16h5l2-5 3 10 3-6 3 3h5" stroke="#1e3a5f" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+  <!-- Signal points - industrial accent -->
+  <circle cx="9" cy="11" r="2" fill="#c9a227"/>
+  <circle cx="16" cy="10" r="2" fill="#c9a227"/>
+  <circle cx="23" cy="13" r="2" fill="#c9a227"/>
+</svg>

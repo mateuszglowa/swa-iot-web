@@ -43,7 +43,7 @@ export default function RootLayout({
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
       </head>
       <body
-        className={`${inter.variable} ${geistMono.variable} font-sans antialiased`}
+        className={`USD{inter.variable} USD{geistMono.variable} font-sans antialiased`}
       >
         <ThemeProvider>
           <ThemeToggle />

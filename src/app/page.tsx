@@ -105,7 +105,7 @@ const ROI_SCENARIOS = [
   {
     id: "downtime",
     icon: AlertTriangle,
-    amount: "50 000+ zł",
+    amount: "50 000+ USD",
     unit: "per avoided hour of downtime",
     scenario: "Manufacturing: early bearing fault detected → planned maintenance instead of line stop.",
   },
@@ -223,7 +223,7 @@ const USE_CASES = [
     asset: "Motors, bearings, compressors",
     risk: "Unplanned downtime, recurring failures",
     variables: "Vibration, temperature, pressure, runtime",
-    outcome: "Prevent failures that cost your company an average of 50,000+ zł per hour of downtime",
+    outcome: "Prevent failures that cost your company an average of 50,000+ USD per hour of downtime",
   },
   {
     vertical: "Irrigation & Agriculture",
