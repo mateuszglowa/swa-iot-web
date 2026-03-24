@@ -8,46 +8,29 @@ import {
   User,
   Phone,
   LayoutDashboard,
-  TrendingUp,
-  Zap,
-  ShieldCheck,
-  AlertTriangle,
 } from "lucide-react";
 
-function HeroVisual() {
+function SectionTitle({
+  label,
+  title,
+  description,
+}: {
+  label: string;
+  title: string;
+  description?: string;
+}) {
   return (
-    <div
-      className="mx-auto w-full max-w-[200px] px-4 text-navy/30 dark:text-white/50"
-      aria-hidden
-    >
-      <svg
-        viewBox="0 0 200 48"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-        className="w-full"
-      >
-        <path
-          d="M0 24 L40 24 L50 12 L70 32 L90 8 L110 24 L130 16 L150 28 L170 20 L200 24"
-          stroke="currentColor"
-          strokeWidth="2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-        <path
-          d="M0 36 L35 36 L55 28 L75 40 L95 30 L115 36 L135 32 L155 38 L185 34 L200 36"
-          stroke="currentColor"
-          strokeWidth="1.5"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          opacity={0.7}
-        />
-        <g className="text-accent-industrial dark:text-accent-industrial">
-          <circle cx="50" cy="12" r="4" fill="currentColor" />
-          <circle cx="90" cy="8" r="4" fill="currentColor" />
-          <circle cx="130" cy="16" r="4" fill="currentColor" />
-        </g>
-      </svg>
-    </div>
+    <header className="max-w-2xl">
+      <p className="section-label">{label}</p>
+      <h2 className="font-heading mt-3 text-2xl font-medium tracking-tight text-foreground sm:text-3xl">
+        {title}
+      </h2>
+      {description ? (
+        <p className="mt-3 text-base leading-relaxed text-muted-foreground">
+          {description}
+        </p>
+      ) : null}
+    </header>
   );
 }
 
@@ -60,7 +43,7 @@ function EndToEndDiagram() {
   ];
   return (
     <div
-      className="mx-auto w-full max-w-3xl rounded-xl border-2 border-border bg-card p-5 dark:bg-card sm:p-6 lg:p-8"
+      className="mx-auto w-full max-w-3xl border border-border bg-card/80 p-5 backdrop-blur-[2px] sm:p-6 lg:p-8"
       aria-hidden
     >
       {/* Mobile: stacked */}
@@ -68,7 +51,7 @@ function EndToEndDiagram() {
         {blocks.map((block) => (
           <div
             key={block.label}
-            className="flex min-h-12 items-center justify-center rounded-lg border border-border bg-muted/50 px-4 py-4 text-center dark:bg-muted"
+            className="flex min-h-12 items-center justify-center border border-border bg-muted/40 px-4 py-4 text-center dark:bg-muted/60"
           >
             <span className="text-sm font-semibold uppercase tracking-wider text-muted-foreground">
               {block.label}
@@ -80,8 +63,8 @@ function EndToEndDiagram() {
       <div className="hidden sm:flex sm:items-center sm:justify-between sm:gap-2 lg:gap-4">
         {blocks.map((block, i) => (
           <div key={block.label} className="flex flex-1 items-center gap-2 lg:gap-4">
-            <div className="flex min-h-18 flex-1 items-center justify-center rounded-lg border border-border bg-muted/50 px-3 py-4 text-center dark:bg-muted lg:min-h-20 lg:px-4 lg:py-5">
-              <span className="text-sm font-semibold uppercase tracking-wider text-muted-foreground lg:text-base">
+            <div className="flex min-h-18 flex-1 items-center justify-center border border-border bg-muted/40 px-3 py-4 text-center dark:bg-muted/60 lg:min-h-20 lg:px-4 lg:py-5">
+              <span className="font-mono text-xs font-medium uppercase tracking-[0.18em] text-muted-foreground lg:text-sm">
                 {block.label}
               </span>
             </div>
@@ -94,8 +77,9 @@ function EndToEndDiagram() {
           </div>
         ))}
       </div>
-      <p className="mt-4 text-center text-sm text-muted-foreground sm:mt-5">
-        We own the entire system architecture — not just a single layer.
+      <p className="mt-4 text-center text-sm leading-relaxed text-muted-foreground sm:mt-5">
+        Full stack in one team: hardware through to the screens your operators
+        actually use.
       </p>
     </div>
   );
@@ -104,31 +88,35 @@ function EndToEndDiagram() {
 const ROI_SCENARIOS = [
   {
     id: "downtime",
-    icon: AlertTriangle,
+    context: "Manufacturing line",
     amount: "50 000+ USD",
-    unit: "per avoided hour of downtime",
-    scenario: "Manufacturing: early bearing fault detected → planned maintenance instead of line stop.",
+    unit: "typical cost per hour of unplanned downtime",
+    scenario:
+      "A bearing fault showed up in vibration data weeks before it would have seized. Maintenance was scheduled during a planned stop instead of mid-run.",
   },
   {
     id: "energy",
-    icon: Zap,
-    amount: "15%",
-    unit: "energy waste reduction",
-    scenario: "Energy: per-machine visibility revealed idle waste. Clients cut bills by 12–18%.",
+    context: "Shop floor power",
+    amount: "12–18%",
+    unit: "lower energy bills after idle-time visibility",
+    scenario:
+      "Per-machine metering made it obvious which assets were left running overnight. No new hardware philosophy—just data the finance team could act on.",
   },
   {
     id: "spoilage",
-    icon: ShieldCheck,
-    amount: "Compliance + spoilage",
-    unit: "risk reduced",
-    scenario: "Cold storage: temperature drift alerts prevent product loss and audit gaps.",
+    context: "Cold chain",
+    amount: "Audit-ready",
+    unit: "temperature logs without the clipboard",
+    scenario:
+      "Drift alerts and retained history reduced spoilage risk and gave QA a straight line from sensor to report.",
   },
   {
     id: "remote",
-    icon: TrendingUp,
-    amount: "24/7 visibility",
-    unit: "replaces manual logs",
-    scenario: "Pump stations: remote alerts instead of site visits. Faster response, lower cost.",
+    context: "Remote sites",
+    amount: "Fewer truck rolls",
+    unit: "alerts before the phone tree starts",
+    scenario:
+      "Tank level and pump runtime pushed to one dashboard. Operators stopped driving out for readings that could have been a notification.",
   },
 ] as const;
 
@@ -308,116 +296,137 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-background text-foreground">
       {/* 1. Hero */}
-      <section className="hero-gradient border-b border-border px-6 py-20 sm:px-8 md:py-28 lg:px-12">
-        <div className="mx-auto max-w-2xl text-center">
-          <HeroVisual />
-          <span className="mt-6 inline-block rounded-full border border-navy/20 bg-navy/5 px-4 py-1.5 text-xs font-medium uppercase tracking-wider text-navy dark:border-white/30 dark:bg-white/15 dark:text-white">
-            30-day pilot · Low risk
-          </span>
-          <h1 className="mt-6 text-3xl font-bold tracking-tight text-foreground sm:text-4xl md:text-5xl md:leading-tight">
-            Industrial monitoring that pays for itself
-          </h1>
-          <p className="mt-5 text-lg text-muted-foreground sm:text-xl">
-            Prevent downtime. Cut energy waste. Get visibility. Real ROI from
-            day one.
-          </p>
-          <div className="mt-10 flex flex-col items-center justify-center gap-3 sm:flex-row">
-            <Button
-              asChild
-              size="lg"
-              className="w-full min-w-[200px] shadow-lg shadow-navy/20 transition-all hover:shadow-xl hover:shadow-navy/25 sm:w-auto"
-            >
-              <a href="#roi">See savings examples</a>
-            </Button>
-            <Button
-              asChild
-              variant="outline"
-              size="lg"
-              className="w-full min-w-[200px] border-2 border-foreground/20 hover:border-accent-industrial hover:bg-accent-industrial/5 hover:text-foreground sm:w-auto"
-            >
-              <a href="#contact">Schedule intro call</a>
-            </Button>
+      <section className="hero-surface px-6 py-16 sm:px-8 md:py-24 lg:px-12">
+        <div className="mx-auto grid max-w-6xl gap-12 lg:grid-cols-[1fr_minmax(0,280px)] lg:items-end lg:gap-16">
+          <div>
+            <p className="section-label text-navy/70 dark:text-white/60">
+              Industrial IoT · EU-based
+            </p>
+            <h1 className="font-heading mt-5 text-[2rem] font-medium leading-[1.12] tracking-tight text-foreground sm:text-5xl sm:leading-[1.08]">
+              Monitoring built around how plants actually fail—not around
+              dashboard demos.
+            </h1>
+            <p className="mt-6 max-w-xl text-lg leading-relaxed text-muted-foreground">
+              We spec sensors, build edge hardware where needed, run the cloud
+              side, and hand you alerts your maintenance team will trust. Start
+              with a{" "}
+              <span className="text-foreground">30-day pilot</span> on one or
+              two assets; no long contract required.
+            </p>
+            <div className="mt-10 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+              <Button asChild size="lg" className="w-full sm:w-auto">
+                <a href="#roi">Read how savings show up</a>
+              </Button>
+              <Button
+                asChild
+                variant="outline"
+                size="lg"
+                className="w-full border-foreground/25 bg-background/60 sm:w-auto"
+              >
+                <a href="#contact">Book a short intro</a>
+              </Button>
+            </div>
           </div>
+          <aside
+            className="border-l-2 border-accent-industrial pl-6 text-sm leading-relaxed text-muted-foreground lg:pb-2"
+            aria-label="Summary"
+          >
+            <p>
+              <span className="font-mono text-[0.65rem] uppercase tracking-[0.2em] text-foreground">
+                Scope
+              </span>
+              <br />
+              Vibration, temperature, energy, tank level—wired where it matters,
+              wireless where it doesn&apos;t.
+            </p>
+            <p className="mt-5">
+              <span className="font-mono text-[0.65rem] uppercase tracking-[0.2em] text-foreground">
+                Output
+              </span>
+              <br />
+              Threshold alerts, trend views, and exportable history for
+              maintenance and compliance conversations.
+            </p>
+          </aside>
         </div>
       </section>
 
       {/* 2. ROI Scenarios — main focus */}
       <section
         id="roi"
-        className="border-b border-border bg-muted/40 px-6 py-16 sm:px-8 lg:px-12"
+        className="border-b border-border px-6 py-16 sm:px-8 lg:px-12"
       >
-        <div className="mx-auto max-w-5xl">
-          <h2 className="text-center text-2xl font-bold text-foreground sm:text-3xl">
-            What clients save
-          </h2>
-          <p className="mt-2 text-center text-muted-foreground">
-            Real scenarios. Measurable ROI.
+        <div className="mx-auto max-w-6xl">
+          <SectionTitle
+            label="Outcomes"
+            title="Where the money shows up"
+            description="These are the same conversations we have on site: specific assets, specific failure modes, and a before/after you can point to in a spreadsheet."
+          />
+          <div className="mt-12 grid gap-6 sm:grid-cols-2">
+            {ROI_SCENARIOS.map((item) => (
+              <article
+                key={item.id}
+                className="border-l-4 border-l-accent-industrial border border-border bg-card p-6 sm:p-8"
+              >
+                <p className="font-mono text-[0.65rem] font-medium uppercase tracking-[0.2em] text-accent-industrial">
+                  {item.context}
+                </p>
+                <p className="font-heading mt-4 text-2xl font-medium text-foreground sm:text-3xl">
+                  {item.amount}
+                </p>
+                <p className="mt-1 text-sm text-muted-foreground">{item.unit}</p>
+                <p className="mt-4 border-t border-border pt-4 text-sm leading-relaxed text-muted-foreground">
+                  {item.scenario}
+                </p>
+              </article>
+            ))}
+          </div>
+          <p className="mt-10 text-sm text-muted-foreground">
+            Want numbers for your plant?{" "}
+            <a
+              href="#contact"
+              className="font-medium text-foreground underline decoration-accent-industrial/50 underline-offset-4 hover:decoration-accent-industrial"
+            >
+              Send asset types and rough downtime cost
+            </a>
+            —we&apos;ll reply with a straight answer, not a funnel sequence.
           </p>
-          <div className="mt-10 grid gap-6 sm:grid-cols-2">
-            {ROI_SCENARIOS.map((item) => {
-              const Icon = item.icon;
-              return (
-                <article
-                  key={item.id}
-                  className="flex gap-5 rounded-xl border border-border bg-card p-6 shadow-sm transition-shadow hover:shadow-md"
-                >
-                  <div className="flex size-12 shrink-0 items-center justify-center rounded-xl bg-navy/10 text-navy dark:bg-white/15">
-                    <Icon className="size-6" />
-                  </div>
-                  <div className="min-w-0 flex-1">
-                    <p className="text-xl font-bold text-foreground sm:text-2xl">
-                      {item.amount}
-                    </p>
-                    <p className="mt-0.5 text-sm font-medium text-muted-foreground">
-                      {item.unit}
-                    </p>
-                    <p className="mt-3 text-sm text-muted-foreground">
-                      {item.scenario}
-                    </p>
-                  </div>
-                </article>
-              );
-            })}
-          </div>
-          <div className="mt-10 text-center">
-            <Button asChild size="lg" variant="outline">
-              <a href="#contact">Get your ROI estimate</a>
-            </Button>
-          </div>
         </div>
       </section>
 
       {/* 3. What End-to-End Means */}
       <section
         id="what-e2e"
-        className="border-b border-border px-6 py-12 sm:px-8 lg:px-12"
+        className="border-b border-border bg-muted/30 px-6 py-14 sm:px-8 lg:px-12"
       >
-        <div className="mx-auto max-w-5xl">
-          <h2 className="text-center text-xl font-bold text-foreground sm:text-2xl">
-            How it works
-          </h2>
-          <p className="mt-2 text-center text-sm text-muted-foreground">
-            Sensors → Edge → Cloud → Dashboards & alerts. We own the full stack.
-          </p>
-          <div className="mt-8 flex justify-center">
+        <div className="mx-auto max-w-6xl">
+          <SectionTitle
+            label="Architecture"
+            title="End-to-end, on purpose"
+            description="Most pain in IoT projects comes from handoffs. We keep sensor choice, firmware, cloud, and UI under one roof so nothing gets lost between vendors."
+          />
+          <div className="mt-10 max-w-3xl">
             <EndToEndDiagram />
           </div>
-          <div className="mt-8 grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
-            {E2E_LAYERS.map((layer) => (
-              <div
-                key={layer.id}
-                className="rounded-lg border border-border bg-card px-4 py-3"
-              >
-                <h3 className="font-semibold text-foreground text-sm">
-                  {layer.title}
+          <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+            {E2E_LAYERS.map((layer, i) => (
+              <div key={layer.id} className="relative pl-4">
+                <span
+                  className="absolute left-0 top-1 font-mono text-xs tabular-nums text-muted-foreground"
+                  aria-hidden
+                >
+                  {String(i + 1).padStart(2, "0")}
+                </span>
+                <h3 className="text-sm font-semibold leading-snug text-foreground">
+                  {layer.title.replace(/^Layer \d+: /, "")}
                 </h3>
-                <ul className="mt-2 space-y-1">
+                <ul className="mt-3 space-y-2">
                   {layer.bullets.map((b) => (
                     <li
                       key={b}
-                      className="flex items-start gap-2 text-xs text-muted-foreground"
+                      className="flex items-start gap-2 text-sm leading-snug text-muted-foreground"
                     >
-                      <Check className="mt-0.5 size-3 shrink-0 text-navy" />
+                      <span className="mt-2 size-1 shrink-0 rounded-full bg-accent-industrial" />
                       <span>{b}</span>
                     </li>
                   ))}
@@ -426,18 +435,22 @@ export default function Home() {
             ))}
           </div>
 
-          {/* Dashboard demo preview */}
-          <div className="mt-10">
-            <h3 className="text-center text-base font-semibold text-foreground">
-              Dashboards & demos
+          <div className="mt-14 border-t border-border pt-12">
+            <h3 className="font-heading text-xl font-medium text-foreground">
+              What operators see
             </h3>
-            <div className="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            <p className="mt-2 max-w-2xl text-sm leading-relaxed text-muted-foreground">
+              Screens are tuned to the role: maintenance sees faults and
+              trends; management sees summaries. Below are the three bundles we
+              deploy most often—swap in your screenshots when you have them.
+            </p>
+            <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
               {DEMO_DASHBOARDS.map((demo) => (
                 <article
                   key={demo.id}
-                  className="overflow-hidden rounded-xl border border-border bg-card"
+                  className="overflow-hidden border border-border bg-card"
                 >
-                  <div className="aspect-video bg-muted/50">
+                  <div className="aspect-video bg-muted/60">
                     {demo.image ? (
                       <img
                         src={demo.image}
@@ -446,18 +459,21 @@ export default function Home() {
                       />
                     ) : (
                       <div
-                        className="flex size-full items-center justify-center border-b border-border"
+                        className="flex size-full items-center justify-center"
                         aria-label="Dashboard preview placeholder"
                       >
-                        <LayoutDashboard className="size-16 text-muted-foreground/40" />
+                        <LayoutDashboard
+                          className="size-14 text-muted-foreground/35"
+                          strokeWidth={1.25}
+                        />
                       </div>
                     )}
                   </div>
-                  <div className="p-4">
-                    <h4 className="font-semibold text-foreground">
+                  <div className="border-t border-border p-4">
+                    <h4 className="text-sm font-semibold text-foreground">
                       {demo.title}
                     </h4>
-                    <p className="mt-1 text-sm text-muted-foreground">
+                    <p className="mt-1.5 text-sm leading-relaxed text-muted-foreground">
                       {demo.description}
                     </p>
                   </div>
@@ -469,43 +485,40 @@ export default function Home() {
       </section>
 
       {/* 4. Problems We Solve */}
-      <section className="border-b border-border bg-muted/40 px-6 py-10 sm:px-8 lg:px-12">
-        <div className="mx-auto max-w-4xl">
-          <h2 className="text-center text-lg font-bold text-foreground">
-            We fix
-          </h2>
-          <div className="mt-6 flex flex-wrap justify-center gap-3">
+      <section className="border-b border-border px-6 py-14 sm:px-8 lg:px-12">
+        <div className="mx-auto max-w-6xl">
+          <SectionTitle
+            label="Problems"
+            title="The messy middle we&apos;re usually called for"
+          />
+          <ul className="mt-8 max-w-3xl space-y-3 text-base leading-relaxed text-muted-foreground">
             {PROBLEMS.map((problem) => (
-              <span
-                key={problem}
-                className="rounded-full border border-border bg-card px-4 py-2 text-sm font-medium text-foreground"
-              >
-                {problem}
-              </span>
+              <li key={problem} className="flex gap-3">
+                <span className="font-mono text-accent-industrial">—</span>
+                <span>{problem}</span>
+              </li>
             ))}
-          </div>
+          </ul>
         </div>
       </section>
 
       {/* 5. How We Deliver */}
       <section
         id="how-it-works"
-        className="border-b border-border px-6 py-10 sm:px-8 lg:px-12"
+        className="border-b border-border bg-muted/30 px-6 py-14 sm:px-8 lg:px-12"
       >
-        <div className="mx-auto max-w-3xl">
-          <h2 className="text-center text-lg font-bold text-foreground">
-            How we deliver
-          </h2>
-          <ol className="mt-6 flex flex-wrap justify-center gap-3">
+        <div className="mx-auto max-w-6xl lg:grid lg:grid-cols-[minmax(0,280px)_1fr] lg:gap-16">
+          <SectionTitle label="Delivery" title="How an engagement runs" />
+          <ol className="mt-8 space-y-0 lg:mt-0">
             {DELIVERY_STEPS.map((step, i) => (
               <li
                 key={step}
-                className="flex items-center gap-2 rounded-lg border border-border bg-card px-4 py-2"
+                className="flex gap-5 border-b border-border py-4 last:border-b-0"
               >
-                <span className="flex size-6 shrink-0 items-center justify-center rounded bg-navy text-xs font-bold text-navy-foreground">
-                  {i + 1}
+                <span className="w-8 shrink-0 font-mono text-sm font-semibold tabular-nums text-muted-foreground">
+                  {String(i + 1).padStart(2, "0")}
                 </span>
-                <span className="text-sm font-medium text-foreground">
+                <span className="text-base leading-relaxed text-foreground">
                   {step}
                 </span>
               </li>
@@ -517,94 +530,123 @@ export default function Home() {
       {/* 5b. 30-day pilot */}
       <section
         id="pilot"
-        className="border-b border-border bg-muted/40 px-6 py-10 sm:px-8 lg:px-12"
+        className="border-b border-border px-6 py-14 sm:px-8 lg:px-12"
       >
-        <div className="mx-auto max-w-3xl">
-          <h2 className="text-center text-lg font-bold text-foreground">
-            30-day pilot — no commitment
-          </h2>
-          <div className="mt-6 rounded-xl border-2 border-border bg-card p-6">
-            <ol className="flex flex-wrap justify-center gap-4 sm:gap-6">
-              {PILOT_STEPS.map((item) => (
-                <li
-                  key={item.step}
-                  className="flex flex-col items-center gap-1 text-center"
-                >
-                  <span className="flex size-9 shrink-0 items-center justify-center rounded-lg bg-navy text-xs font-bold text-navy-foreground">
-                    {item.step}
-                  </span>
-                  <span className="max-w-[120px] text-xs font-medium text-foreground">
-                    {item.title}
-                  </span>
-                </li>
-              ))}
-            </ol>
-          </div>
+        <div className="mx-auto max-w-6xl">
+          <SectionTitle
+            label="Pilot"
+            title="Thirty days, one or two assets, no lock-in"
+            description="Enough time to see signal quality and whether your team will actually use the data. If it&apos;s not useful, we part ways cleanly."
+          />
+          <ol className="mt-10 grid gap-8 sm:grid-cols-2 lg:grid-cols-5">
+            {PILOT_STEPS.map((item) => (
+              <li key={item.step} className="flex flex-col gap-2">
+                <span className="font-mono text-xs tabular-nums text-muted-foreground">
+                  Step {item.step}
+                </span>
+                <span className="text-sm font-medium leading-snug text-foreground">
+                  {item.title}
+                </span>
+              </li>
+            ))}
+          </ol>
         </div>
       </section>
 
       {/* 6. Use Cases — ROI focus */}
-      <section className="border-b border-border px-6 py-10 sm:px-8 lg:px-12">
-        <div className="mx-auto max-w-5xl">
-          <h2 className="text-center text-lg font-bold text-foreground">
-            ROI by industry
-          </h2>
-          <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {USE_CASES.map((uc) => (
-              <article
-                key={uc.vertical}
-                className="rounded-xl border border-border bg-card p-4"
-              >
-                <h3 className="font-semibold text-foreground">{uc.vertical}</h3>
-                <p className="mt-2 text-sm font-medium text-navy">
-                  {uc.outcome}
-                </p>
-              </article>
-            ))}
+      <section className="border-b border-border bg-muted/30 px-6 py-14 sm:px-8 lg:px-12">
+        <div className="mx-auto max-w-6xl">
+          <SectionTitle
+            label="Industries"
+            title="Where this tends to land"
+          />
+          <div className="mt-10 overflow-x-auto">
+            <table className="w-full min-w-[640px] border-collapse text-left text-sm">
+              <thead>
+                <tr className="border-b border-border">
+                  <th className="pb-3 pr-4 font-mono text-[0.65rem] font-medium uppercase tracking-[0.18em] text-muted-foreground">
+                    Sector
+                  </th>
+                  <th className="pb-3 pr-4 font-mono text-[0.65rem] font-medium uppercase tracking-[0.18em] text-muted-foreground">
+                    Typical assets
+                  </th>
+                  <th className="pb-3 font-mono text-[0.65rem] font-medium uppercase tracking-[0.18em] text-muted-foreground">
+                    What changes
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                {USE_CASES.map((uc) => (
+                  <tr
+                    key={uc.vertical}
+                    className="border-b border-border last:border-0"
+                  >
+                    <td className="py-4 pr-4 align-top font-medium text-foreground">
+                      {uc.vertical}
+                    </td>
+                    <td className="py-4 pr-4 align-top text-muted-foreground">
+                      {uc.asset}
+                      <span className="mt-1 block text-xs text-muted-foreground/80">
+                        Signals: {uc.variables}
+                      </span>
+                    </td>
+                    <td className="py-4 align-top text-foreground/90">
+                      {uc.outcome}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
           </div>
         </div>
       </section>
 
       {/* 6b. Recent Projects */}
-      <section className="border-b border-border bg-muted/40 px-6 py-10 sm:px-8 lg:px-12">
-        <div className="mx-auto max-w-5xl">
-          <h2 className="text-center text-lg font-bold text-foreground">
-            Recent projects
-          </h2>
-          <div className="mt-6 grid gap-4 sm:grid-cols-2">
+      <section className="border-b border-border px-6 py-14 sm:px-8 lg:px-12">
+        <div className="mx-auto max-w-6xl">
+          <SectionTitle
+            label="Work"
+            title="Recent deployments (anonymised where needed)"
+          />
+          <ul className="mt-10 divide-y divide-border border-y border-border">
             {RECENT_PROJECTS.map((project) => (
-              <article
+              <li
                 key={project.title}
-                className="rounded-xl border border-border bg-card p-4"
+                className="grid gap-2 py-5 sm:grid-cols-[140px_1fr_1fr] sm:items-start sm:gap-8"
               >
-                <span className="text-xs font-medium text-muted-foreground">
+                <span className="font-mono text-xs uppercase tracking-wider text-muted-foreground">
                   {project.industry}
                 </span>
-                <h3 className="mt-1 font-semibold text-foreground">
-                  {project.title}
-                </h3>
-                <p className="mt-2 text-sm font-medium text-navy">
+                <div>
+                  <h3 className="font-medium text-foreground">{project.title}</h3>
+                  <p className="mt-1 text-sm text-muted-foreground">{project.scope}</p>
+                </div>
+                <p className="text-sm leading-relaxed text-foreground/90 sm:text-right">
                   {project.outcome}
                 </p>
-              </article>
+              </li>
             ))}
-          </div>
+          </ul>
         </div>
       </section>
 
       {/* 7. Why Us */}
-      <section className="border-b border-border px-6 py-10 sm:px-8 lg:px-12">
-        <div className="mx-auto max-w-2xl">
-          <h2 className="text-center text-lg font-bold text-foreground">
-            Why us
-          </h2>
-          <ul className="mt-6 grid gap-3 sm:grid-cols-2">
+      <section className="border-b border-border bg-muted/30 px-6 py-14 sm:px-8 lg:px-12">
+        <div className="mx-auto max-w-6xl lg:grid lg:grid-cols-2 lg:gap-16">
+          <SectionTitle
+            label="Principles"
+            title="Why teams hire us instead of bolting three vendors together"
+          />
+          <ul className="mt-8 space-y-4 lg:mt-0">
             {WHY_APPROACH.map((point) => (
               <li
                 key={point}
-                className="flex items-start gap-2 rounded-lg border border-border bg-card px-4 py-2 text-sm text-muted-foreground"
+                className="flex gap-3 text-base leading-relaxed text-muted-foreground"
               >
-                <Check className="mt-0.5 size-4 shrink-0 text-navy" />
+                <Check
+                  className="mt-1 size-4 shrink-0 text-accent-industrial"
+                  strokeWidth={2.5}
+                />
                 <span>{point}</span>
               </li>
             ))}
@@ -613,39 +655,43 @@ export default function Home() {
       </section>
 
       {/* 7b. About Us */}
-      <section className="border-b border-border bg-muted/40 px-6 py-10 sm:px-8 lg:px-12">
-        <div className="mx-auto max-w-4xl">
-          <h2 className="text-center text-lg font-bold text-foreground">
-            About us
-          </h2>
-          <div className="mt-6 grid gap-6 sm:grid-cols-2">
+      <section className="border-b border-border px-6 py-14 sm:px-8 lg:px-12">
+        <div className="mx-auto max-w-6xl">
+          <SectionTitle
+            label="People"
+            title="Who you&apos;ll be working with"
+            description="Replace placeholder names and photos when you&apos;re ready—the structure is meant for two founders or leads, not a faceless &ldquo;we.&rdquo;"
+          />
+          <div className="mt-10 grid gap-10 sm:grid-cols-2">
             {FOUNDERS.map((founder) => (
               <article
                 key={founder.name + founder.role}
-                className="flex gap-4 rounded-xl border border-border bg-card p-4"
+                className="flex gap-5 border-t border-border pt-8 sm:pt-10"
               >
                 <div className="flex shrink-0">
                   {founder.image ? (
                     <img
                       src={founder.image}
                       alt={founder.name}
-                      className="size-16 rounded-lg object-cover sm:size-20"
+                      className="size-20 object-cover grayscale sm:size-24"
                     />
                   ) : (
                     <div
-                      className="flex size-16 items-center justify-center rounded-lg border-2 border-dashed border-muted-foreground/30 bg-muted/50 sm:size-20"
+                      className="flex size-20 items-center justify-center border border-dashed border-muted-foreground/40 bg-muted/40 sm:size-24"
                       aria-label="Photo placeholder"
                     >
-                      <User className="size-8 text-muted-foreground/50" />
+                      <User className="size-9 text-muted-foreground/45" />
                     </div>
                   )}
                 </div>
                 <div className="min-w-0 flex-1">
-                  <h3 className="font-semibold text-foreground">{founder.name}</h3>
-                  <p className="mt-0.5 text-xs font-medium text-muted-foreground">
+                  <h3 className="font-heading text-lg font-medium text-foreground">
+                    {founder.name}
+                  </h3>
+                  <p className="mt-1 font-mono text-[0.65rem] uppercase tracking-[0.18em] text-muted-foreground">
                     {founder.role}
                   </p>
-                  <p className="mt-2 text-xs text-muted-foreground">
+                  <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
                     {founder.bio}
                   </p>
                 </div>
@@ -658,20 +704,21 @@ export default function Home() {
       {/* 7. Contact */}
       <section
         id="contact"
-        className="border-b border-border bg-muted/40 px-6 py-16 sm:px-8 lg:px-12"
+        className="border-b border-border bg-muted/30 px-6 py-16 sm:px-8 lg:px-12"
       >
-        <div className="mx-auto max-w-4xl">
-          <h2 className="text-center text-xl font-bold text-foreground sm:text-2xl">
-            Contact us
-          </h2>
-          <p className="mt-2 text-center text-sm text-muted-foreground">
-            Phone, email, or form. We reply quickly.
-          </p>
+        <div className="mx-auto max-w-6xl">
+          <SectionTitle
+            label="Contact"
+            title="Say hello"
+            description="Call, email, or use the form—whichever fits how your team already works. We aim for same-day replies on business days."
+          />
 
-          <div className="mt-10 grid gap-10 lg:grid-cols-2 xl:gap-16">
+          <div className="mt-12 grid gap-12 lg:grid-cols-2 lg:gap-16">
             <div className="space-y-6">
-              <div className="rounded-xl border border-border bg-card p-6">
-                <h3 className="font-semibold text-foreground">Get in touch</h3>
+              <div className="border border-border bg-card p-6">
+                <h3 className="font-heading text-lg font-medium text-foreground">
+                  Direct lines
+                </h3>
                 <ul className="mt-4 space-y-3">
                   <li>
                     <a
@@ -705,8 +752,8 @@ export default function Home() {
               </div>
             </div>
 
-            <div className="rounded-xl border border-border bg-card p-6">
-              <h3 className="font-semibold text-foreground">
+            <div className="border border-border bg-card p-6">
+              <h3 className="font-heading text-lg font-medium text-foreground">
                 Technical question?
               </h3>
               <p className="mt-1 text-sm text-muted-foreground">
@@ -732,7 +779,7 @@ export default function Home() {
                     type="text"
                     name="name"
                     placeholder="Your name"
-                    className="mt-1.5 w-full rounded-lg border border-border bg-background px-3 py-2 text-sm text-foreground placeholder:text-muted-foreground focus:border-navy focus:outline-none focus:ring-2 focus:ring-navy/20"
+                    className="mt-1.5 w-full border border-border bg-background px-3 py-2 text-sm text-foreground placeholder:text-muted-foreground focus:border-navy focus:outline-none focus:ring-1 focus:ring-navy/25"
                   />
                 </div>
                 <div>
@@ -744,7 +791,7 @@ export default function Home() {
                     name="email"
                     required
                     placeholder="you@company.com"
-                    className="mt-1.5 w-full rounded-lg border border-border bg-background px-3 py-2 text-sm text-foreground placeholder:text-muted-foreground focus:border-navy focus:outline-none focus:ring-2 focus:ring-navy/20"
+                    className="mt-1.5 w-full border border-border bg-background px-3 py-2 text-sm text-foreground placeholder:text-muted-foreground focus:border-navy focus:outline-none focus:ring-1 focus:ring-navy/25"
                   />
                 </div>
                 <div>
@@ -756,7 +803,7 @@ export default function Home() {
                     required
                     rows={4}
                     placeholder="Your technical question..."
-                    className="mt-1.5 w-full resize-none rounded-lg border border-border bg-background px-3 py-2 text-sm text-foreground placeholder:text-muted-foreground focus:border-navy focus:outline-none focus:ring-2 focus:ring-navy/20"
+                    className="mt-1.5 w-full resize-none border border-border bg-background px-3 py-2 text-sm text-foreground placeholder:text-muted-foreground focus:border-navy focus:outline-none focus:ring-1 focus:ring-navy/25"
                   />
                 </div>
                 <Button type="submit" size="lg" className="w-full sm:w-auto">
@@ -769,27 +816,26 @@ export default function Home() {
       </section>
 
       {/* 8. CTA */}
-      <section className="cta-gradient relative overflow-hidden px-6 py-16 text-white sm:px-8 lg:px-12">
-        <div
-          className="absolute inset-0 opacity-[0.03]"
-          style={{
-            backgroundImage:
-              "radial-gradient(circle at 1px 1px, white 1px, transparent 0)",
-            backgroundSize: "24px 24px",
-          }}
-        />
-        <div className="relative mx-auto max-w-2xl text-center">
-          <h2 className="text-2xl font-bold sm:text-3xl md:text-4xl">
-            Get your ROI estimate
-          </h2>
-          <p className="mt-6 text-lg text-white/90">
-            30-day pilot. No commitment. Real numbers.
-          </p>
-          <div className="mt-10 flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
+      <section className="cta-surface px-6 py-16 text-white sm:px-8 lg:px-12">
+        <div className="mx-auto flex max-w-6xl flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
+          <div className="max-w-xl">
+            <p className="font-mono text-[0.65rem] font-medium uppercase tracking-[0.22em] text-white/55">
+              Next step
+            </p>
+            <h2 className="font-heading mt-4 text-3xl font-medium leading-tight sm:text-4xl">
+              Rough ROI in one conversation
+            </h2>
+            <p className="mt-4 text-base leading-relaxed text-white/85">
+              Bring asset types, rough downtime or energy numbers, and what you
+              wish you could see from the plant floor. We&apos;ll tell you if
+              we&apos;re the right fit—no nurture emails.
+            </p>
+          </div>
+          <div className="flex shrink-0 flex-col gap-3 sm:flex-row lg:flex-col lg:items-stretch">
             <Button
               asChild
               size="lg"
-              className="w-full bg-white px-8 text-navy shadow-xl shadow-black/20 transition-all hover:scale-[1.02] hover:bg-white hover:shadow-2xl sm:w-auto"
+              className="w-full bg-white text-navy hover:bg-white/95 sm:w-auto lg:w-full"
             >
               <a
                 href="https://calendly.com/example"
@@ -797,7 +843,18 @@ export default function Home() {
                 rel="noopener noreferrer"
               >
                 <Calendar className="size-4" />
-                Schedule Intro Call
+                Pick a time
+              </a>
+            </Button>
+            <Button
+              asChild
+              size="lg"
+              variant="outline"
+              className="w-full border-white/40 bg-transparent text-white hover:bg-white/10 sm:w-auto lg:w-full"
+            >
+              <a href="mailto:contact@example.com">
+                <Mail className="size-4" />
+                Email instead
               </a>
             </Button>
           </div>
@@ -806,50 +863,51 @@ export default function Home() {
 
       {/* Footer */}
       <footer
-        className="border-t border-border bg-white px-6 py-10 dark:bg-card sm:px-8 lg:px-12"
+        className="border-t border-border px-6 py-12 sm:px-8 lg:px-12"
         aria-label="Contact"
       >
-        <div className="mx-auto flex max-w-4xl flex-col items-center justify-between gap-6 sm:flex-row sm:flex-wrap">
-          <h3 className="text-base font-semibold text-foreground sm:text-lg">
-            Contact
-          </h3>
-          <div className="flex flex-wrap items-center justify-center gap-6 sm:gap-8">
+        <div className="mx-auto flex max-w-6xl flex-col justify-between gap-8 sm:flex-row sm:items-start">
+          <div>
+            <p className="font-mono text-[0.65rem] uppercase tracking-[0.2em] text-muted-foreground">
+              Industrial monitoring
+            </p>
+            <p className="mt-2 max-w-xs text-sm leading-relaxed text-muted-foreground">
+              End-to-end systems: sensors through to the alerts your maintenance
+              team trusts.
+            </p>
+          </div>
+          <div className="flex flex-col gap-4 text-sm sm:items-end">
             <a
               href="tel:+48123456789"
-              className="inline-flex items-center gap-2 text-foreground underline decoration-muted-foreground/40 underline-offset-2 transition-colors hover:text-navy hover:decoration-navy"
+              className="inline-flex items-center gap-2 text-foreground hover:text-navy"
             >
-              <Phone className="size-4 shrink-0" />
+              <Phone className="size-4 shrink-0 opacity-60" />
               <span>+48 123 456 789</span>
             </a>
             <a
               href="mailto:contact@example.com"
-              className="inline-flex items-center gap-2 text-foreground underline decoration-muted-foreground/40 underline-offset-2 transition-colors hover:text-navy hover:decoration-navy"
+              className="inline-flex items-center gap-2 text-foreground hover:text-navy"
             >
-              <Mail className="size-4 shrink-0" />
+              <Mail className="size-4 shrink-0 opacity-60" />
               <span>contact@example.com</span>
             </a>
             <a
               href="https://linkedin.com"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 text-foreground underline decoration-muted-foreground/40 underline-offset-2 transition-colors hover:text-navy hover:decoration-navy"
+              className="inline-flex items-center gap-2 text-foreground hover:text-navy"
             >
-              <Linkedin className="size-4 shrink-0" />
+              <Linkedin className="size-4 shrink-0 opacity-60" />
               <span>LinkedIn</span>
             </a>
-            <Button
-              asChild
-              size="sm"
-              variant="outline"
-              className="border-navy/30 text-navy hover:bg-navy/5"
-            >
+            <Button asChild size="sm" variant="outline" className="mt-2 w-fit">
               <a
                 href="https://calendly.com/example"
                 target="_blank"
                 rel="noopener noreferrer"
               >
                 <Calendar className="size-4" />
-                Schedule a Call
+                Calendar
               </a>
             </Button>
           </div>
